@@ -192,12 +192,12 @@ export default class Uint8ArrayExtension {
     return new Uint8Array(bytes);
   }
 
-  equals(a: Uint8Array, b: Uint8Array): boolean {
-    if (a.length !== b.length) {
+  equals(other: Uint8Array): boolean {
+    if (this.#buffer.length !== other.length) {
       return false;
     }
-    for (let i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) {
+    for (let i = 0; i < this.#buffer.length; i++) {
+      if (this.#buffer[i] !== other[i]) {
         return false;
       }
     }

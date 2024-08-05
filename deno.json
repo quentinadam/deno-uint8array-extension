@@ -1,6 +1,6 @@
 {
   "name": "@quentinadam/uint8array-extension",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "exports": {
     ".": "./Uint8ArrayExtension.ts",
     "./concat": "./concat.ts"
