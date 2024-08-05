@@ -1,0 +1,22 @@
+{
+  "name": "@quentinadam/uint8array-extension",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./Uint8ArrayExtension.ts",
+    "./concat": "./concat.ts"
+  },
+  "imports": { "@quentinadam/assert": "jsr:@quentinadam/assert@^0.1.6" },
+  "publish": {
+    "exclude": [
+      ".github/",
+      ".vscode/"
+    ]
+  },
+  "fmt": {
+    "singleQuote": true,
+    "lineWidth": 120
+  },
+  "tasks": {
+    "check": "deno check **/*.ts"
+  }
+}
