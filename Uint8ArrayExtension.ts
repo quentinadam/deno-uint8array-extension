@@ -47,6 +47,7 @@ export default class Uint8ArrayExtension {
   }
 
   padStart(length: number): Uint8Array {
+    assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
     if (this.#buffer.length >= length) {
       return this.#buffer;
     }
@@ -54,6 +55,7 @@ export default class Uint8ArrayExtension {
   }
 
   padEnd(length: number): Uint8Array {
+    assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
     if (this.#buffer.length >= length) {
       return this.#buffer;
     }
@@ -62,6 +64,7 @@ export default class Uint8ArrayExtension {
 
   #setUint16(offset: number, value: number | bigint, littleEndian: boolean) {
     if (typeof value === 'bigint') {
+      assert(value >= 0n && value <= 0xffffn, `Value ${value} is out of bounds for a 16-bit unsigned integer`);
       value = Number(value);
     }
     this.#dataView.setUint16(offset, value, littleEndian);
@@ -78,6 +81,7 @@ export default class Uint8ArrayExtension {
 
   #setUint32(offset: number, value: number | bigint, littleEndian: boolean) {
     if (typeof value === 'bigint') {
+      assert(value >= 0n && value <= 0xffffffffn, `Value ${value} is out of bounds for a 32-bit unsigned integer`);
       value = Number(value);
     }
     this.#dataView.setUint32(offset, value, littleEndian);
@@ -94,8 +98,13 @@ export default class Uint8ArrayExtension {
 
   #setUint64(offset: number, value: number | bigint, littleEndian: boolean) {
     if (typeof value === 'number') {
+      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);
     }
+    assert(
+      value >= 0n && value <= 0xffffffffffffffffn,
+      `Value ${value} is out of bounds for a 64-bit unsigned integer`,
+    );
     this.#dataView.setBigUint64(offset, value, littleEndian);
     return this.#buffer;
   }
@@ -166,17 +175,20 @@ export default class Uint8ArrayExtension {
   }
 
   static fromUintBE(value: number | bigint, length?: number): Uint8Array {
-    if (typeof value === 'number') {
-      value = BigInt(value);
-    }
     return this.fromUintLE(value, length).reverse();
   }
 
   static fromUintLE(value: number | bigint, length?: number): Uint8Array {
     if (typeof value === 'number') {
+      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);
     }
-    assert(value >= 0n, `number ${value} is negative`);
+    if (length !== undefined) {
+      assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
+      const maxValue = (1n << (BigInt(length) * 8n)) - 1n;
+      assert(value <= maxValue, `Value ${value} is out of bounds for a ${length}-byte unsigned integer`);
+    }
+    assert(value >= 0n, `Value ${value} is negative`);
     const bytes = new Array<number>();
     let current = value;
     while (current > 0) {
@@ -190,6 +202,29 @@ export default class Uint8ArrayExtension {
       }
     }
     return new Uint8Array(bytes);
+  }
+
+  static fromIntBE(value: number | bigint, length: number): Uint8Array {
+    return this.fromIntLE(value, length).reverse();
+  }
+
+  static fromIntLE(value: number | bigint, length: number): Uint8Array {
+    if (typeof value === 'number') {
+      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+      value = BigInt(value);
+    }
+    assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
+    if (value > 0n) {
+      const maxValue = (1n << (BigInt(length) * 8n - 1n)) - 1n;
+      assert(value <= maxValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
+    } else {
+      const minValue = -(1n << (BigInt(length) * 8n - 1n));
+      assert(value >= minValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
+    }
+    if (value < 0n) {
+      value = (1n << (BigInt(length) * 8n)) + value;
+    }
+    return this.fromUintLE(value, length);
   }
 
   equals(other: Uint8Array): boolean {
