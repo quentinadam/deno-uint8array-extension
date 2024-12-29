@@ -1,7 +1,6 @@
-# uint8array-extension
+# @quentinadam/uint8array-extension
 
-[![JSR](https://jsr.io/badges/@quentinadam/uint8array-extension)](https://jsr.io/@quentinadam/uint8array-extension)
-[![CI](https://github.com/quentinadam/deno-uint8array-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/quentinadam/deno-uint8array-extension/actions/workflows/ci.yml)
+[![JSR][jsr-image]][jsr-url] [![NPM][npm-image]][npm-url] [![CI][ci-image]][ci-url]
 
 A library of Uint8Array extension functions.
 
@@ -32,3 +31,10 @@ import concat from '@quentinadam/uint8array-extension/concat';
 const a = concat([new Uint8Array([1, 2]), new Uint8Array([3, 4])]);
 console.log(a); // Uint8Array [ 1, 2, 3, 4 ]
 ```
+
+[ci-image]: https://img.shields.io/github/actions/workflow/status/quentinadam/deno-uint8array-extension/ci.yml?branch=main&logo=github&style=flat-square
+[ci-url]: https://github.com/quentinadam/deno-uint8array-extension/actions/workflows/ci.yml
+[npm-image]: https://img.shields.io/npm/v/@quentinadam/uint8array-extension.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@quentinadam/uint8array-extension
+[jsr-image]: https://jsr.io/badges/@quentinadam/uint8array-extension?style=flat-square
+[jsr-url]: https://jsr.io/@quentinadam/uint8array-extension
