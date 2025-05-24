@@ -1,79 +1,237 @@
 import assert from '@quentinadam/assert';
 import Uint8ArrayExtension from './Uint8ArrayExtension.ts';
+import equals from './equals.ts';
 
-Deno.test('equals', () => {
+Deno.test('concat', () => {
+  const ext = new Uint8ArrayExtension(new Uint8Array([1, 2]));
+  const result = ext.concat(new Uint8Array([3, 4]), new Uint8Array([5, 6]));
+  assert(equals(result, new Uint8Array([1, 2, 3, 4, 5, 6])));
+});
+
+Deno.test('padStart', () => {
   const vectors = [
-    { a: new Uint8Array([1, 2, 3]), b: new Uint8Array([1, 2, 3]), result: true },
-    { a: new Uint8Array([1, 2, 3]), b: new Uint8Array([1, 2, 4]), result: false },
-    { a: new Uint8Array([1, 2, 3]), b: new Uint8Array([1, 2]), result: false },
-    { a: new Uint8Array([1, 2, 3]), b: new Uint8Array([1, 2, 3, 4]), result: false },
+    { input: new Uint8Array([1, 2, 3]), length: 2, result: new Uint8Array([1, 2, 3]) },
+    { input: new Uint8Array([1, 2, 3]), length: 3, result: new Uint8Array([1, 2, 3]) },
+    { input: new Uint8Array([1, 2, 3]), length: 5, result: new Uint8Array([0, 0, 1, 2, 3]) },
   ];
-  for (const { a, b, result } of vectors) {
-    assert(new Uint8ArrayExtension(a).equals(b) === result);
-    assert(new Uint8ArrayExtension(b).equals(a) === result);
+  for (const { input, length, result } of vectors) {
+    assert(new Uint8ArrayExtension(new Uint8ArrayExtension(input).padStart(length)).equals(result));
   }
 });
 
-Deno.test('fromUintBE', () => {
+Deno.test('padEnd', () => {
   const vectors = [
-    { value: 0, result: new Uint8Array([]) },
-    { value: 0, length: 0, result: new Uint8Array([]) },
-    { value: 0, length: 1, result: new Uint8Array([0]) },
-    { value: 1, result: new Uint8Array([1]) },
-    { value: 1, length: 1, result: new Uint8Array([1]) },
-    { value: 0x102, result: new Uint8Array([1, 2]) },
-    { value: 0x102, length: 2, result: new Uint8Array([1, 2]) },
-    { value: 0x102, length: 3, result: new Uint8Array([0, 1, 2]) },
+    { input: new Uint8Array([1, 2, 3]), length: 2, result: new Uint8Array([1, 2, 3]) },
+    { input: new Uint8Array([1, 2, 3]), length: 3, result: new Uint8Array([1, 2, 3]) },
+    { input: new Uint8Array([1, 2, 3]), length: 5, result: new Uint8Array([1, 2, 3, 0, 0]) },
   ];
-  for (const { value, length, result } of vectors) {
-    assert(new Uint8ArrayExtension(Uint8ArrayExtension.fromUintBE(value, length)).equals(result));
+  for (const { input, length, result } of vectors) {
+    assert(new Uint8ArrayExtension(new Uint8ArrayExtension(input).padEnd(length)).equals(result));
   }
 });
 
-Deno.test('fromUintLE', () => {
+Deno.test('getInt16/setInt16/fromInt16', () => {
   const vectors = [
-    { value: 0, result: new Uint8Array([]) },
-    { value: 0, length: 0, result: new Uint8Array([]) },
-    { value: 0, length: 1, result: new Uint8Array([0]) },
-    { value: 1, result: new Uint8Array([1]) },
-    { value: 1, length: 1, result: new Uint8Array([1]) },
-    { value: 0x102, result: new Uint8Array([2, 1]) },
-    { value: 0x102, length: 2, result: new Uint8Array([2, 1]) },
-    { value: 0x102, length: 3, result: new Uint8Array([2, 1, 0]) },
+    { value: 0x1234, buffer: new Uint8Array([0x12, 0x34]) },
+    { value: -1, buffer: new Uint8Array([0xff, 0xff]) },
+    { value: -0x1234, buffer: new Uint8Array([0xed, 0xcc]) },
+    { value: 32767, buffer: new Uint8Array([0x7f, 0xff]) },
+    { value: -32768, buffer: new Uint8Array([0x80, 0x00]) },
+    { value: 0, buffer: new Uint8Array([0x00, 0x00]) },
   ];
-  for (const { value, length, result } of vectors) {
-    assert(new Uint8ArrayExtension(Uint8ArrayExtension.fromUintLE(value, length)).equals(result));
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getInt16(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getInt16(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getInt16BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getInt16LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setInt16(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setInt16(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setInt16BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setInt16LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt16(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt16(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt16BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt16LE(value), buffer.slice().reverse()));
   }
 });
 
-Deno.test('fromIntBE', () => {
+Deno.test('getInt32/setInt32/fromInt32', () => {
   const vectors = [
-    { value: 0, length: 0, result: new Uint8Array([]) },
-    { value: 0, length: 1, result: new Uint8Array([0]) },
-    { value: 1, length: 1, result: new Uint8Array([1]) },
-    { value: -1, length: 1, result: new Uint8Array([255]) },
-    { value: 0x102, length: 2, result: new Uint8Array([1, 2]) },
-    { value: 0x102, length: 3, result: new Uint8Array([0, 1, 2]) },
-    { value: -0x103, length: 2, result: new Uint8Array([254, 253]) },
-    { value: -0x103, length: 3, result: new Uint8Array([255, 254, 253]) },
+    { value: 0x12345678, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78]) },
+    { value: -1, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff]) },
+    { value: -0x12345678, buffer: new Uint8Array([0xed, 0xcb, 0xa9, 0x88]) },
+    { value: 2147483647, buffer: new Uint8Array([0x7f, 0xff, 0xff, 0xff]) },
+    { value: -2147483648, buffer: new Uint8Array([0x80, 0x00, 0x00, 0x00]) },
+    { value: 0, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x00]) },
   ];
-  for (const { value, length, result } of vectors) {
-    assert(new Uint8ArrayExtension(Uint8ArrayExtension.fromIntBE(value, length)).equals(result));
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getInt32(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getInt32(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getInt32BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getInt32LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setInt32(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setInt32(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setInt32BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setInt32LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt32(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt32(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt32BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt32LE(value), buffer.slice().reverse()));
   }
 });
 
-Deno.test('fromIntLE', () => {
+Deno.test('getInt64/setInt64/fromInt64', () => {
   const vectors = [
-    { value: 0, length: 0, result: new Uint8Array([]) },
-    { value: 0, length: 1, result: new Uint8Array([0]) },
-    { value: 1, length: 1, result: new Uint8Array([1]) },
-    { value: -1, length: 1, result: new Uint8Array([255]) },
-    { value: 0x102, length: 2, result: new Uint8Array([2, 1]) },
-    { value: 0x102, length: 3, result: new Uint8Array([2, 1, 0]) },
-    { value: -0x103, length: 2, result: new Uint8Array([253, 254]) },
-    { value: -0x103, length: 3, result: new Uint8Array([253, 254, 255]) },
+    { value: 0x123456789abcdef0n, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0]) },
+    { value: -1n, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]) },
+    { value: -0x123456789abcdef0n, buffer: new Uint8Array([0xed, 0xcb, 0xa9, 0x87, 0x65, 0x43, 0x21, 0x10]) },
+    { value: 9223372036854775807n, buffer: new Uint8Array([0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]) },
+    { value: -9223372036854775808n, buffer: new Uint8Array([0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]) },
+    { value: 0n, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]) },
   ];
-  for (const { value, length, result } of vectors) {
-    assert(new Uint8ArrayExtension(Uint8ArrayExtension.fromIntLE(value, length)).equals(result));
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getBigInt64(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getBigInt64(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getBigInt64BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getBigInt64LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setInt64(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setInt64(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setInt64BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setInt64LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt64(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt64(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromInt64BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt64LE(value), buffer.slice().reverse()));
+  }
+});
+
+Deno.test('getUint16/setUint16/fromUint16', () => {
+  const vectors = [
+    { value: 0x1234, buffer: new Uint8Array([0x12, 0x34]) },
+    { value: 0, buffer: new Uint8Array([0x00, 0x00]) },
+    { value: 65535, buffer: new Uint8Array([0xff, 0xff]) },
+    { value: 1, buffer: new Uint8Array([0x00, 0x01]) },
+    { value: 65534, buffer: new Uint8Array([0xff, 0xfe]) },
+  ];
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getUint16(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getUint16(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getUint16BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getUint16LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setUint16(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setUint16(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setUint16BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(2)).setUint16LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint16(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint16(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint16BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint16LE(value), buffer.slice().reverse()));
+  }
+});
+
+Deno.test('getUint32/setUint32/fromUint32', () => {
+  const vectors = [
+    { value: 0x12345678, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78]) },
+    { value: 0, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x00]) },
+    { value: 4294967295, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff]) },
+    { value: 1, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x01]) },
+    { value: 4294967294, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xfe]) },
+  ];
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getUint32(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getUint32(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getUint32BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getUint32LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setUint32(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setUint32(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setUint32BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(4)).setUint32LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint32(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint32(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint32BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint32LE(value), buffer.slice().reverse()));
+  }
+});
+
+Deno.test('getUint64/setUint64/fromUint64', () => {
+  const vectors = [
+    { value: 0x123456789abcdef0n, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0]) },
+    { value: 0n, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]) },
+    { value: 18446744073709551615n, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]) },
+    { value: 1n, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]) },
+    { value: 18446744073709551614n, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe]) },
+  ];
+  for (const { value, buffer } of vectors) {
+    assert(new Uint8ArrayExtension(buffer).getBigUint64(0, false) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getBigUint64(0, true) === value);
+    assert(new Uint8ArrayExtension(buffer).getBigUint64BE(0) === value);
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).getBigUint64LE(0) === value);
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setUint64(0, value, false), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setUint64(0, value, true), buffer.slice().reverse()));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setUint64BE(0, value), buffer));
+    assert(equals(new Uint8ArrayExtension(new Uint8Array(8)).setUint64LE(0, value), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint64(value, false), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint64(value, true), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUint64BE(value), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint64LE(value), buffer.slice().reverse()));
+  }
+});
+
+Deno.test('fromInt/toBigInt', () => {
+  const vectors = [
+    { value: 0, length: 0, buffer: new Uint8Array([]) },
+    { value: 0, length: 1, buffer: new Uint8Array([0]) },
+    { value: 1, length: 1, buffer: new Uint8Array([1]) },
+    { value: -1, length: 1, buffer: new Uint8Array([255]) },
+    { value: 0x102, length: 2, buffer: new Uint8Array([1, 2]) },
+    { value: 0x102, length: 3, buffer: new Uint8Array([0, 1, 2]) },
+    { value: -0x103, length: 2, buffer: new Uint8Array([254, 253]) },
+    { value: -0x103, length: 3, buffer: new Uint8Array([255, 254, 253]) },
+    { value: 0x12345678n, length: 4, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78]) },
+    { value: 0x78563412n, length: 4, buffer: new Uint8Array([0x78, 0x56, 0x34, 0x12]) },
+    { value: -1n, length: 4, buffer: new Uint8Array([0xff, 0xff, 0xff, 0xff]) },
+    { value: -0x80000000n, length: 4, buffer: new Uint8Array([0x80, 0x00, 0x00, 0x00]) },
+    { value: 0x80n, length: 4, buffer: new Uint8Array([0x00, 0x00, 0x00, 0x80]) },
+    { value: 0x7fffffffn, length: 4, buffer: new Uint8Array([0x7f, 0xff, 0xff, 0xff]) },
+    { value: -0x81n, length: 4, buffer: new Uint8Array([0xff, 0xff, 0xff, 0x7f]) },
+    { value: -0x65432110n, length: 4, buffer: new Uint8Array([0x9a, 0xbc, 0xde, 0xf0]) },
+    { value: -0x0f214366n, length: 4, buffer: new Uint8Array([0xf0, 0xde, 0xbc, 0x9a]) },
+  ];
+  for (const { value, length, buffer } of vectors) {
+    assert(equals(Uint8ArrayExtension.fromInt(value, false, length), buffer));
+    assert(equals(Uint8ArrayExtension.fromInt(value, true, length), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromIntBE(value, length), buffer));
+    assert(equals(Uint8ArrayExtension.fromIntLE(value, length), buffer.slice().reverse()));
+    assert(new Uint8ArrayExtension(buffer).toBigInt(false) === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).toBigInt(true) === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer).toBigIntBE() === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).toBigIntLE() === BigInt(value));
+  }
+});
+
+Deno.test('fromUint/toUint', () => {
+  const vectors = [
+    { value: 0, buffer: new Uint8Array([]) },
+    { value: 0, length: 0, buffer: new Uint8Array([]) },
+    { value: 0, length: 1, buffer: new Uint8Array([0]) },
+    { value: 1, buffer: new Uint8Array([1]) },
+    { value: 1, length: 1, buffer: new Uint8Array([1]) },
+    { value: 0x102, buffer: new Uint8Array([1, 2]) },
+    { value: 0x102, length: 2, buffer: new Uint8Array([1, 2]) },
+    { value: 0x102, length: 3, buffer: new Uint8Array([0, 1, 2]) },
+    { value: 0x12345678n, buffer: new Uint8Array([0x12, 0x34, 0x56, 0x78]) },
+    { value: 0x78563412n, buffer: new Uint8Array([0x78, 0x56, 0x34, 0x12]) },
+    { value: 0x9abcdef0n, buffer: new Uint8Array([0x9a, 0xbc, 0xde, 0xf0]) },
+    { value: 0xf0debc9an, buffer: new Uint8Array([0xf0, 0xde, 0xbc, 0x9a]) },
+  ];
+  for (const { value, length, buffer } of vectors) {
+    assert(equals(Uint8ArrayExtension.fromUint(value, false, length), buffer));
+    assert(equals(Uint8ArrayExtension.fromUint(value, true, length), buffer.slice().reverse()));
+    assert(equals(Uint8ArrayExtension.fromUintBE(value, length), buffer));
+    assert(equals(Uint8ArrayExtension.fromUintLE(value, length), buffer.slice().reverse()));
+    assert(new Uint8ArrayExtension(buffer).toBigUint(false) === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).toBigUint(true) === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer).toBigUintBE() === BigInt(value));
+    assert(new Uint8ArrayExtension(buffer.slice().reverse()).toBigUintLE() === BigInt(value));
   }
 });

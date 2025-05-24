@@ -149,7 +149,7 @@ export default class Uint8ArrayExtension {
       value = BigInt(value);
     }
     assert(
-      value >= -8000000000000000n && value < 0x8000000000000000n,
+      value >= -0x8000000000000000n && value < 0x8000000000000000n,
       `Value ${value} is out of bounds for a 64-bit signed integer`,
     );
     this.#dataView.setBigInt64(offset, value, littleEndian);
@@ -219,6 +219,25 @@ export default class Uint8ArrayExtension {
 
   setUint64BE(offset: number, value: number | bigint): Uint8Array {
     return this.setUint64(offset, value, false);
+  }
+
+  toBigInt(littleEndian: boolean): bigint {
+    const buffer = littleEndian ? this.#buffer.slice().reverse() : this.#buffer;
+    let result = BigInt(0);
+    for (const byte of buffer) {
+      result = (result << 8n) | BigInt(byte);
+    }
+    return this.#buffer.length > 0 && result >= (1n << (BigInt(this.#buffer.length) * 8n - 1n))
+      ? result - (1n << BigInt(this.#buffer.length) * 8n)
+      : result;
+  }
+
+  toBigIntBE(): bigint {
+    return this.toBigInt(false);
+  }
+
+  toBigIntLE(): bigint {
+    return this.toBigInt(true);
   }
 
   toBigUint(littleEndian: boolean): bigint {
