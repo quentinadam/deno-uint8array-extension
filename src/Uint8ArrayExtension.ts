@@ -19,6 +19,42 @@ export default class Uint8ArrayExtension {
     return equals(this.#buffer, other);
   }
 
+  getInt16(offset: number, littleEndian: boolean): number {
+    return this.#dataView.getInt16(offset, littleEndian);
+  }
+
+  getInt16BE(offset: number): number {
+    return this.getInt16(offset, false);
+  }
+
+  getInt16LE(offset: number): number {
+    return this.getInt16(offset, true);
+  }
+
+  getInt32(offset: number, littleEndian: boolean): number {
+    return this.#dataView.getInt32(offset, littleEndian);
+  }
+
+  getInt32BE(offset: number): number {
+    return this.getInt32(offset, false);
+  }
+
+  getInt32LE(offset: number): number {
+    return this.getInt32(offset, true);
+  }
+
+  getBigInt64(offset: number, littleEndian: boolean): bigint {
+    return this.#dataView.getBigInt64(offset, littleEndian);
+  }
+
+  getBigInt64BE(offset: number): bigint {
+    return this.getBigInt64(offset, false);
+  }
+
+  getBigInt64LE(offset: number): bigint {
+    return this.getBigInt64(offset, true);
+  }
+
   getUint16(offset: number, littleEndian: boolean): number {
     return this.#dataView.getUint16(offset, littleEndian);
   }
@@ -71,11 +107,69 @@ export default class Uint8ArrayExtension {
     return concat([this.#buffer, new Uint8Array(length - this.#buffer.length)]);
   }
 
-  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setInt16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
     if (typeof value === 'bigint') {
-      assert(value >= 0n && value <= 0xffffn, `Value ${value} is out of bounds for a 16-bit unsigned integer`);
       value = Number(value);
     }
+    assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+    assert(value >= -0x8000 && value < 0x8000, `Value ${value} is out of bounds for a 16-bit signed integer`);
+    this.#dataView.setInt16(offset, value, littleEndian);
+    return this.#buffer;
+  }
+
+  setInt16LE(offset: number, value: number): Uint8Array {
+    return this.setInt16(offset, value, true);
+  }
+
+  setInt16BE(offset: number, value: number): Uint8Array {
+    return this.setInt16(offset, value, false);
+  }
+
+  setInt32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+    if (typeof value === 'bigint') {
+      value = Number(value);
+    }
+    assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+    assert(value >= -0x80000000 && value < 0x80000000, `Value ${value} is out of bounds for a 32-bit signed integer`);
+    this.#dataView.setInt32(offset, value, littleEndian);
+    return this.#buffer;
+  }
+
+  setInt32LE(offset: number, value: number): Uint8Array {
+    return this.setInt32(offset, value, true);
+  }
+
+  setInt32BE(offset: number, value: number): Uint8Array {
+    return this.setInt32(offset, value, false);
+  }
+
+  setInt64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+    if (typeof value === 'number') {
+      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+      value = BigInt(value);
+    }
+    assert(
+      value >= -8000000000000000n && value < 0x8000000000000000n,
+      `Value ${value} is out of bounds for a 64-bit signed integer`,
+    );
+    this.#dataView.setBigInt64(offset, value, littleEndian);
+    return this.#buffer;
+  }
+
+  setInt64LE(offset: number, value: number | bigint): Uint8Array {
+    return this.setInt64(offset, value, true);
+  }
+
+  setInt64BE(offset: number, value: number | bigint): Uint8Array {
+    return this.setInt64(offset, value, false);
+  }
+
+  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+    if (typeof value === 'bigint') {
+      value = Number(value);
+    }
+    assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+    assert(value >= 0 && value < 0x10000, `Value ${value} is out of bounds for a 16-bit unsigned integer`);
     this.#dataView.setUint16(offset, value, littleEndian);
     return this.#buffer;
   }
@@ -90,9 +184,10 @@ export default class Uint8ArrayExtension {
 
   setUint32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
     if (typeof value === 'bigint') {
-      assert(value >= 0n && value <= 0xffffffffn, `Value ${value} is out of bounds for a 32-bit unsigned integer`);
       value = Number(value);
     }
+    assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+    assert(value >= 0 && value < 0x100000000, `Value ${value} is out of bounds for a 32-bit unsigned integer`);
     this.#dataView.setUint32(offset, value, littleEndian);
     return this.#buffer;
   }
@@ -111,7 +206,7 @@ export default class Uint8ArrayExtension {
       value = BigInt(value);
     }
     assert(
-      value >= 0n && value <= 0xffffffffffffffffn,
+      value >= 0n && value < 0x10000000000000000n,
       `Value ${value} is out of bounds for a 64-bit unsigned integer`,
     );
     this.#dataView.setBigUint64(offset, value, littleEndian);
@@ -151,6 +246,69 @@ export default class Uint8ArrayExtension {
     return equals(a, b);
   }
 
+  static fromInt16(value: number | bigint, littleEndian: boolean): Uint8Array {
+    return new Uint8ArrayExtension(new Uint8Array(2)).setInt16(0, value, littleEndian);
+  }
+
+  static fromInt16BE(value: number | bigint): Uint8Array {
+    return this.fromInt16(value, false);
+  }
+
+  static fromInt16LE(value: number | bigint): Uint8Array {
+    return this.fromInt16(value, true);
+  }
+
+  static fromInt32(value: number | bigint, littleEndian: boolean): Uint8Array {
+    return new Uint8ArrayExtension(new Uint8Array(4)).setInt32(0, value, littleEndian);
+  }
+
+  static fromInt32BE(value: number | bigint): Uint8Array {
+    return this.fromInt32(value, false);
+  }
+
+  static fromInt32LE(value: number | bigint): Uint8Array {
+    return this.fromInt32(value, true);
+  }
+
+  static fromInt64(value: number | bigint, littleEndian: boolean): Uint8Array {
+    return new Uint8ArrayExtension(new Uint8Array(8)).setInt64(0, value, littleEndian);
+  }
+
+  static fromInt64BE(value: number | bigint): Uint8Array {
+    return this.fromInt64(value, false);
+  }
+
+  static fromInt64LE(value: number | bigint): Uint8Array {
+    return this.fromInt64(value, true);
+  }
+
+  static fromInt(value: number | bigint, littleEndian: boolean, length: number): Uint8Array {
+    return littleEndian ? this.fromIntLE(value, length) : this.fromIntBE(value, length);
+  }
+
+  static fromIntBE(value: number | bigint, length: number): Uint8Array {
+    return this.fromIntLE(value, length).reverse();
+  }
+
+  static fromIntLE(value: number | bigint, length: number): Uint8Array {
+    if (typeof value === 'number') {
+      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
+      value = BigInt(value);
+    }
+    assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
+    if (value > 0n) {
+      const maxValue = (1n << (BigInt(length) * 8n - 1n)) - 1n;
+      assert(value <= maxValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
+    } else {
+      const minValue = -(1n << (BigInt(length) * 8n - 1n));
+      assert(value >= minValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
+    }
+    if (value < 0n) {
+      value = (1n << (BigInt(length) * 8n)) + value;
+    }
+    return this.fromUintLE(value, length);
+  }
+
   static fromUint16(value: number | bigint, littleEndian: boolean): Uint8Array {
     return new Uint8ArrayExtension(new Uint8Array(2)).setUint16(0, value, littleEndian);
   }
@@ -187,6 +345,10 @@ export default class Uint8ArrayExtension {
     return this.fromUint64(value, true);
   }
 
+  static fromUint(value: number | bigint, littleEndian: boolean, length?: number): Uint8Array {
+    return littleEndian ? this.fromUintLE(value, length) : this.fromUintBE(value, length);
+  }
+
   static fromUintBE(value: number | bigint, length?: number): Uint8Array {
     return this.fromUintLE(value, length).reverse();
   }
@@ -215,29 +377,6 @@ export default class Uint8ArrayExtension {
       }
     }
     return new Uint8Array(bytes);
-  }
-
-  static fromIntBE(value: number | bigint, length: number): Uint8Array {
-    return this.fromIntLE(value, length).reverse();
-  }
-
-  static fromIntLE(value: number | bigint, length: number): Uint8Array {
-    if (typeof value === 'number') {
-      assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
-      value = BigInt(value);
-    }
-    assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
-    if (value > 0n) {
-      const maxValue = (1n << (BigInt(length) * 8n - 1n)) - 1n;
-      assert(value <= maxValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
-    } else {
-      const minValue = -(1n << (BigInt(length) * 8n - 1n));
-      assert(value >= minValue, `Value ${value} is out of bounds for a ${length}-byte signed integer`);
-    }
-    if (value < 0n) {
-      value = (1n << (BigInt(length) * 8n)) + value;
-    }
-    return this.fromUintLE(value, length);
   }
 }
 
