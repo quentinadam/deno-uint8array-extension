@@ -6,16 +6,16 @@ export default class Uint8ArrayExtension {
   readonly #buffer;
   readonly #dataView;
 
-  constructor(buffer: Uint8Array) {
+  constructor(buffer: Uint8Array<ArrayBuffer>) {
     this.#buffer = buffer;
     this.#dataView = new DataView(buffer.buffer);
   }
 
-  concat(...buffers: Uint8Array[]): Uint8Array {
+  concat(...buffers: Uint8Array<ArrayBuffer>[]): Uint8Array<ArrayBuffer> {
     return concat([this.#buffer, ...buffers]);
   }
 
-  equals(other: Uint8Array): boolean {
+  equals(other: Uint8Array<ArrayBuffer>): boolean {
     return equals(this.#buffer, other);
   }
 
@@ -91,7 +91,7 @@ export default class Uint8ArrayExtension {
     return this.getBigUint64(offset, true);
   }
 
-  padStart(length: number): Uint8Array {
+  padStart(length: number): Uint8Array<ArrayBuffer> {
     assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
     if (this.#buffer.length >= length) {
       return this.#buffer;
@@ -99,7 +99,7 @@ export default class Uint8ArrayExtension {
     return concat([new Uint8Array(length - this.#buffer.length), this.#buffer]);
   }
 
-  padEnd(length: number): Uint8Array {
+  padEnd(length: number): Uint8Array<ArrayBuffer> {
     assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
     if (this.#buffer.length >= length) {
       return this.#buffer;
@@ -107,7 +107,7 @@ export default class Uint8ArrayExtension {
     return concat([this.#buffer, new Uint8Array(length - this.#buffer.length)]);
   }
 
-  setInt16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setInt16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'bigint') {
       value = Number(value);
     }
@@ -117,15 +117,15 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setInt16LE(offset: number, value: number): Uint8Array {
+  setInt16LE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setInt16(offset, value, true);
   }
 
-  setInt16BE(offset: number, value: number): Uint8Array {
+  setInt16BE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setInt16(offset, value, false);
   }
 
-  setInt32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setInt32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'bigint') {
       value = Number(value);
     }
@@ -135,15 +135,15 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setInt32LE(offset: number, value: number): Uint8Array {
+  setInt32LE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setInt32(offset, value, true);
   }
 
-  setInt32BE(offset: number, value: number): Uint8Array {
+  setInt32BE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setInt32(offset, value, false);
   }
 
-  setInt64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setInt64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'number') {
       assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);
@@ -156,15 +156,15 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setInt64LE(offset: number, value: number | bigint): Uint8Array {
+  setInt64LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.setInt64(offset, value, true);
   }
 
-  setInt64BE(offset: number, value: number | bigint): Uint8Array {
+  setInt64BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.setInt64(offset, value, false);
   }
 
-  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'bigint') {
       value = Number(value);
     }
@@ -174,15 +174,15 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setUint16LE(offset: number, value: number): Uint8Array {
+  setUint16LE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setUint16(offset, value, true);
   }
 
-  setUint16BE(offset: number, value: number): Uint8Array {
+  setUint16BE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setUint16(offset, value, false);
   }
 
-  setUint32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setUint32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'bigint') {
       value = Number(value);
     }
@@ -192,15 +192,15 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setUint32LE(offset: number, value: number): Uint8Array {
+  setUint32LE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setUint32(offset, value, true);
   }
 
-  setUint32BE(offset: number, value: number): Uint8Array {
+  setUint32BE(offset: number, value: number): Uint8Array<ArrayBuffer> {
     return this.setUint32(offset, value, false);
   }
 
-  setUint64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array {
+  setUint64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     if (typeof value === 'number') {
       assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);
@@ -213,11 +213,11 @@ export default class Uint8ArrayExtension {
     return this.#buffer;
   }
 
-  setUint64LE(offset: number, value: number | bigint): Uint8Array {
+  setUint64LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.setUint64(offset, value, true);
   }
 
-  setUint64BE(offset: number, value: number | bigint): Uint8Array {
+  setUint64BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.setUint64(offset, value, false);
   }
 
@@ -257,59 +257,59 @@ export default class Uint8ArrayExtension {
     return this.toBigUint(true);
   }
 
-  static concat(buffers: Uint8Array[]): Uint8Array {
+  static concat(buffers: Uint8Array<ArrayBuffer>[]): Uint8Array<ArrayBuffer> {
     return concat(buffers);
   }
 
-  static equals(a: Uint8Array, b: Uint8Array): boolean {
+  static equals(a: Uint8Array<ArrayBuffer>, b: Uint8Array<ArrayBuffer>): boolean {
     return equals(a, b);
   }
 
-  static fromInt16(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromInt16(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(2)).setInt16(0, value, littleEndian);
   }
 
-  static fromInt16BE(value: number | bigint): Uint8Array {
+  static fromInt16BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt16(value, false);
   }
 
-  static fromInt16LE(value: number | bigint): Uint8Array {
+  static fromInt16LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt16(value, true);
   }
 
-  static fromInt32(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromInt32(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(4)).setInt32(0, value, littleEndian);
   }
 
-  static fromInt32BE(value: number | bigint): Uint8Array {
+  static fromInt32BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt32(value, false);
   }
 
-  static fromInt32LE(value: number | bigint): Uint8Array {
+  static fromInt32LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt32(value, true);
   }
 
-  static fromInt64(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromInt64(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(8)).setInt64(0, value, littleEndian);
   }
 
-  static fromInt64BE(value: number | bigint): Uint8Array {
+  static fromInt64BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt64(value, false);
   }
 
-  static fromInt64LE(value: number | bigint): Uint8Array {
+  static fromInt64LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromInt64(value, true);
   }
 
-  static fromInt(value: number | bigint, littleEndian: boolean, length: number): Uint8Array {
+  static fromInt(value: number | bigint, littleEndian: boolean, length: number): Uint8Array<ArrayBuffer> {
     return littleEndian ? this.fromIntLE(value, length) : this.fromIntBE(value, length);
   }
 
-  static fromIntBE(value: number | bigint, length: number): Uint8Array {
+  static fromIntBE(value: number | bigint, length: number): Uint8Array<ArrayBuffer> {
     return this.fromIntLE(value, length).reverse();
   }
 
-  static fromIntLE(value: number | bigint, length: number): Uint8Array {
+  static fromIntLE(value: number | bigint, length: number): Uint8Array<ArrayBuffer> {
     if (typeof value === 'number') {
       assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);
@@ -328,51 +328,51 @@ export default class Uint8ArrayExtension {
     return this.fromUintLE(value, length);
   }
 
-  static fromUint16(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromUint16(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(2)).setUint16(0, value, littleEndian);
   }
 
-  static fromUint16BE(value: number | bigint): Uint8Array {
+  static fromUint16BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint16(value, false);
   }
 
-  static fromUint16LE(value: number | bigint): Uint8Array {
+  static fromUint16LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint16(value, true);
   }
 
-  static fromUint32(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromUint32(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(4)).setUint32(0, value, littleEndian);
   }
 
-  static fromUint32BE(value: number | bigint): Uint8Array {
+  static fromUint32BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint32(value, false);
   }
 
-  static fromUint32LE(value: number | bigint): Uint8Array {
+  static fromUint32LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint32(value, true);
   }
 
-  static fromUint64(value: number | bigint, littleEndian: boolean): Uint8Array {
+  static fromUint64(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
     return new Uint8ArrayExtension(new Uint8Array(8)).setUint64(0, value, littleEndian);
   }
 
-  static fromUint64BE(value: number | bigint): Uint8Array {
+  static fromUint64BE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint64(value, false);
   }
 
-  static fromUint64LE(value: number | bigint): Uint8Array {
+  static fromUint64LE(value: number | bigint): Uint8Array<ArrayBuffer> {
     return this.fromUint64(value, true);
   }
 
-  static fromUint(value: number | bigint, littleEndian: boolean, length?: number): Uint8Array {
+  static fromUint(value: number | bigint, littleEndian: boolean, length?: number): Uint8Array<ArrayBuffer> {
     return littleEndian ? this.fromUintLE(value, length) : this.fromUintBE(value, length);
   }
 
-  static fromUintBE(value: number | bigint, length?: number): Uint8Array {
+  static fromUintBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
     return this.fromUintLE(value, length).reverse();
   }
 
-  static fromUintLE(value: number | bigint, length?: number): Uint8Array {
+  static fromUintLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
     if (typeof value === 'number') {
       assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
       value = BigInt(value);

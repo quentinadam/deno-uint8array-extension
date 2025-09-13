@@ -1,4 +1,4 @@
-export default function concat(buffers: Uint8Array[]): Uint8Array {
+export default function concat(buffers: Uint8Array<ArrayBuffer>[]): Uint8Array<ArrayBuffer> {
   const length = buffers.reduce((sum, buffer) => sum + buffer.length, 0);
   const result = new Uint8Array(length);
   buffers.reduce((offset, buffer) => {

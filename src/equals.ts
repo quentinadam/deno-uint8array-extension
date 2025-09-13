@@ -1,4 +1,4 @@
-export default function equals(a: Uint8Array, b: Uint8Array): boolean {
+export default function equals(a: Uint8Array<ArrayBuffer>, b: Uint8Array<ArrayBuffer>): boolean {
   if (a.length !== b.length) {
     return false;
   }
