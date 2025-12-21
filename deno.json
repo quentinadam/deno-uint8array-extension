@@ -1,6 +1,6 @@
 {
   "name": "@quentinadam/uint8array-extension",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A library of Uint8Array extension functions",
   "license": "MIT",
   "author": "Quentin Adam",
@@ -83,8 +83,8 @@
     "./toBigUintLE": "./src/toBigUintLE.ts"
   },
   "imports": {
-    "@quentinadam/assert": "jsr:@quentinadam/assert@^0.1.12",
-    "typescript": "npm:typescript@^5.9.2"
+    "@quentinadam/assert": "jsr:@quentinadam/assert@^0.1.13",
+    "typescript": "npm:typescript@^5.9.3"
   },
   "fmt": {
     "singleQuote": true,
