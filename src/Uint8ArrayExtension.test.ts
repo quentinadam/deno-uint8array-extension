@@ -179,6 +179,14 @@ Deno.test('getUint64/setUint64/fromUint64', () => {
 
 Deno.test('fromInt/toBigInt', () => {
   const vectors = [
+    { value: 0, buffer: new Uint8Array([]) },
+    { value: 1, buffer: new Uint8Array([1]) },
+    { value: 127, buffer: new Uint8Array([127]) },
+    { value: 128, buffer: new Uint8Array([0, 128]) },
+    { value: -1, buffer: new Uint8Array([255]) },
+    { value: -127, buffer: new Uint8Array([129]) },
+    { value: -128, buffer: new Uint8Array([128]) },
+    { value: -129, buffer: new Uint8Array([255, 127]) },
     { value: 0, length: 0, buffer: new Uint8Array([]) },
     { value: 0, length: 1, buffer: new Uint8Array([0]) },
     { value: 1, length: 1, buffer: new Uint8Array([1]) },

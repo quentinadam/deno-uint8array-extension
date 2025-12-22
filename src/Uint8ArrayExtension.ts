@@ -309,15 +309,15 @@ export default class Uint8ArrayExtension {
     return fromInt64LE(value);
   }
 
-  static fromInt(value: number | bigint, littleEndian: boolean, length: number): Uint8Array<ArrayBuffer> {
+  static fromInt(value: number | bigint, littleEndian: boolean, length?: number): Uint8Array<ArrayBuffer> {
     return fromInt(value, littleEndian, length);
   }
 
-  static fromIntBE(value: number | bigint, length: number): Uint8Array<ArrayBuffer> {
+  static fromIntBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
     return fromIntBE(value, length);
   }
 
-  static fromIntLE(value: number | bigint, length: number): Uint8Array<ArrayBuffer> {
+  static fromIntLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
     return fromIntLE(value, length);
   }
 
