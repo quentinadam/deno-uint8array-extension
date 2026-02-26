@@ -1,12 +1,12 @@
 import assert from '@quentinadam/assert';
 import getDataView from './getDataView.ts';
 
-export default function setInt16(
-  target: Uint8Array<ArrayBuffer>,
+export default function setInt16<T extends ArrayBufferLike>(
+  target: Uint8Array<T>,
   offset: number,
   value: number | bigint,
   littleEndian: boolean,
-): Uint8Array<ArrayBuffer> {
+): Uint8Array<T> {
   if (typeof value === 'bigint') {
     value = Number(value);
   }

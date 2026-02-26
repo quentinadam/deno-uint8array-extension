@@ -5,7 +5,7 @@ function _fromIntLE(value: bigint, minimumLength: number, length?: number): numb
   const bytes = Array.from(fromUintLE(value));
   const lastByte = bytes.at(-1);
   if (lastByte !== undefined && lastByte >= 0x80) {
-    bytes.push(0x00);
+    bytes.push(0);
   }
   while (bytes.length < minimumLength) {
     bytes.push(0);

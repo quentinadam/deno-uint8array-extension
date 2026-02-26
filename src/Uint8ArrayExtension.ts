@@ -43,6 +43,7 @@ import getUint16LE from './getUint16LE.ts';
 import getUint32 from './getUint32.ts';
 import getUint32BE from './getUint32BE.ts';
 import getUint32LE from './getUint32LE.ts';
+import isArrayBufferBacked from './isArrayBufferBacked.ts';
 import padEnd from './padEnd.ts';
 import padStart from './padStart.ts';
 import setInt16 from './setInt16.ts';
@@ -70,206 +71,210 @@ import toBigUint from './toBigUint.ts';
 import toBigUintBE from './toBigUintBE.ts';
 import toBigUintLE from './toBigUintLE.ts';
 
-export default class Uint8ArrayExtension {
-  readonly #buffer;
+export default class Uint8ArrayExtension<T extends ArrayBufferLike> {
+  readonly bytes: Uint8Array<T>;
 
-  constructor(buffer: Uint8Array<ArrayBuffer>) {
-    this.#buffer = buffer;
+  constructor(bytes: Uint8Array<T>) {
+    this.bytes = bytes;
   }
 
-  concat(...bytess: Uint8Array<ArrayBuffer>[]): Uint8Array<ArrayBuffer> {
-    return concat([this.#buffer, ...bytess]);
+  concat(...buffers: Uint8Array[]): Uint8Array<ArrayBuffer> {
+    return concat([this.bytes, ...buffers]);
   }
 
-  equals(other: Uint8Array<ArrayBuffer>): boolean {
-    return equals(this.#buffer, other);
+  equals(other: Uint8Array): boolean {
+    return equals(this.bytes, other);
   }
 
   getInt16(offset: number, littleEndian: boolean): number {
-    return getInt16(this.#buffer, offset, littleEndian);
+    return getInt16(this.bytes, offset, littleEndian);
   }
 
   getInt16BE(offset: number): number {
-    return getInt16BE(this.#buffer, offset);
+    return getInt16BE(this.bytes, offset);
   }
 
   getInt16LE(offset: number): number {
-    return getInt16LE(this.#buffer, offset);
+    return getInt16LE(this.bytes, offset);
   }
 
   getInt32(offset: number, littleEndian: boolean): number {
-    return getInt32(this.#buffer, offset, littleEndian);
+    return getInt32(this.bytes, offset, littleEndian);
   }
 
   getInt32BE(offset: number): number {
-    return getInt32BE(this.#buffer, offset);
+    return getInt32BE(this.bytes, offset);
   }
 
   getInt32LE(offset: number): number {
-    return getInt32LE(this.#buffer, offset);
+    return getInt32LE(this.bytes, offset);
   }
 
   getBigInt64(offset: number, littleEndian: boolean): bigint {
-    return getBigInt64(this.#buffer, offset, littleEndian);
+    return getBigInt64(this.bytes, offset, littleEndian);
   }
 
   getBigInt64BE(offset: number): bigint {
-    return getBigInt64BE(this.#buffer, offset);
+    return getBigInt64BE(this.bytes, offset);
   }
 
   getBigInt64LE(offset: number): bigint {
-    return getBigInt64LE(this.#buffer, offset);
+    return getBigInt64LE(this.bytes, offset);
   }
 
   getUint16(offset: number, littleEndian: boolean): number {
-    return getUint16(this.#buffer, offset, littleEndian);
+    return getUint16(this.bytes, offset, littleEndian);
   }
 
   getUint16BE(offset: number): number {
-    return getUint16BE(this.#buffer, offset);
+    return getUint16BE(this.bytes, offset);
   }
 
   getUint16LE(offset: number): number {
-    return getUint16LE(this.#buffer, offset);
+    return getUint16LE(this.bytes, offset);
   }
 
   getUint32(offset: number, littleEndian: boolean): number {
-    return getUint32(this.#buffer, offset, littleEndian);
+    return getUint32(this.bytes, offset, littleEndian);
   }
 
   getUint32BE(offset: number): number {
-    return getUint32BE(this.#buffer, offset);
+    return getUint32BE(this.bytes, offset);
   }
 
   getUint32LE(offset: number): number {
-    return getUint32LE(this.#buffer, offset);
+    return getUint32LE(this.bytes, offset);
   }
 
   getBigUint64(offset: number, littleEndian: boolean): bigint {
-    return getBigUint64(this.#buffer, offset, littleEndian);
+    return getBigUint64(this.bytes, offset, littleEndian);
   }
 
   getBigUint64BE(offset: number): bigint {
-    return getBigUint64BE(this.#buffer, offset);
+    return getBigUint64BE(this.bytes, offset);
   }
 
   getBigUint64LE(offset: number): bigint {
-    return getBigUint64LE(this.#buffer, offset);
+    return getBigUint64LE(this.bytes, offset);
   }
 
   getDataView(): DataView {
-    return getDataView(this.#buffer);
+    return getDataView(this.bytes);
+  }
+
+  isArrayBufferBacked(): this is Uint8ArrayExtension<ArrayBuffer> {
+    return isArrayBufferBacked(this.bytes);
   }
 
   padStart(length: number): Uint8Array<ArrayBuffer> {
-    return padStart(this.#buffer, length);
+    return padStart(this.bytes, length);
   }
 
   padEnd(length: number): Uint8Array<ArrayBuffer> {
-    return padEnd(this.#buffer, length);
+    return padEnd(this.bytes, length);
   }
 
-  setInt16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setInt16(this.#buffer, offset, value, littleEndian);
+  setInt16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setInt16(this.bytes, offset, value, littleEndian);
   }
 
-  setInt16BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt16BE(this.#buffer, offset, value);
+  setInt16BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt16BE(this.bytes, offset, value);
   }
 
-  setInt16LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt16LE(this.#buffer, offset, value);
+  setInt16LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt16LE(this.bytes, offset, value);
   }
 
-  setInt32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setInt32(this.#buffer, offset, value, littleEndian);
+  setInt32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setInt32(this.bytes, offset, value, littleEndian);
   }
 
-  setInt32BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt32BE(this.#buffer, offset, value);
+  setInt32BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt32BE(this.bytes, offset, value);
   }
 
-  setInt32LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt32LE(this.#buffer, offset, value);
+  setInt32LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt32LE(this.bytes, offset, value);
   }
 
-  setInt64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setInt64(this.#buffer, offset, value, littleEndian);
+  setInt64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setInt64(this.bytes, offset, value, littleEndian);
   }
 
-  setInt64BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt64BE(this.#buffer, offset, value);
+  setInt64BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt64BE(this.bytes, offset, value);
   }
 
-  setInt64LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setInt64LE(this.#buffer, offset, value);
+  setInt64LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setInt64LE(this.bytes, offset, value);
   }
 
-  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setUint16(this.#buffer, offset, value, littleEndian);
+  setUint16(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setUint16(this.bytes, offset, value, littleEndian);
   }
 
-  setUint16BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint16BE(this.#buffer, offset, value);
+  setUint16BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint16BE(this.bytes, offset, value);
   }
 
-  setUint16LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint16LE(this.#buffer, offset, value);
+  setUint16LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint16LE(this.bytes, offset, value);
   }
 
-  setUint32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setUint32(this.#buffer, offset, value, littleEndian);
+  setUint32(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setUint32(this.bytes, offset, value, littleEndian);
   }
 
-  setUint32BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint32BE(this.#buffer, offset, value);
+  setUint32BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint32BE(this.bytes, offset, value);
   }
 
-  setUint32LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint32LE(this.#buffer, offset, value);
+  setUint32LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint32LE(this.bytes, offset, value);
   }
 
-  setUint64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
-    return setUint64(this.#buffer, offset, value, littleEndian);
+  setUint64(offset: number, value: number | bigint, littleEndian: boolean): Uint8Array<T> {
+    return setUint64(this.bytes, offset, value, littleEndian);
   }
 
-  setUint64BE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint64BE(this.#buffer, offset, value);
+  setUint64BE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint64BE(this.bytes, offset, value);
   }
 
-  setUint64LE(offset: number, value: number | bigint): Uint8Array<ArrayBuffer> {
-    return setUint64LE(this.#buffer, offset, value);
+  setUint64LE(offset: number, value: number | bigint): Uint8Array<T> {
+    return setUint64LE(this.bytes, offset, value);
   }
 
   toBigInt(littleEndian: boolean): bigint {
-    return toBigInt(this.#buffer, littleEndian);
+    return toBigInt(this.bytes, littleEndian);
   }
 
   toBigIntBE(): bigint {
-    return toBigIntBE(this.#buffer);
+    return toBigIntBE(this.bytes);
   }
 
   toBigIntLE(): bigint {
-    return toBigIntLE(this.#buffer);
+    return toBigIntLE(this.bytes);
   }
 
   toBigUint(littleEndian: boolean): bigint {
-    return toBigUint(this.#buffer, littleEndian);
+    return toBigUint(this.bytes, littleEndian);
   }
 
   toBigUintBE(): bigint {
-    return toBigUintBE(this.#buffer);
+    return toBigUintBE(this.bytes);
   }
 
   toBigUintLE(): bigint {
-    return toBigUintLE(this.#buffer);
+    return toBigUintLE(this.bytes);
   }
 
-  static concat(bytess: Uint8Array<ArrayBuffer>[]): Uint8Array<ArrayBuffer> {
-    return concat(bytess);
+  static concat(buffers: Uint8Array[]): Uint8Array<ArrayBuffer> {
+    return concat(buffers);
   }
 
-  static equals(a: Uint8Array<ArrayBuffer>, b: Uint8Array<ArrayBuffer>): boolean {
+  static equals(a: Uint8Array, b: Uint8Array): boolean {
     return equals(a, b);
   }
 
@@ -416,6 +421,7 @@ export {
   getUint32,
   getUint32BE,
   getUint32LE,
+  isArrayBufferBacked,
   padEnd,
   padStart,
   setInt16,

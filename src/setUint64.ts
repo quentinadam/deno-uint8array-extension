@@ -1,12 +1,12 @@
 import assert from '@quentinadam/assert';
 import getDataView from './getDataView.ts';
 
-export default function setUint64(
-  target: Uint8Array<ArrayBuffer>,
+export default function setUint64<T extends ArrayBufferLike>(
+  target: Uint8Array<T>,
   offset: number,
   value: number | bigint,
   littleEndian: boolean,
-): Uint8Array<ArrayBuffer> {
+): Uint8Array<T> {
   if (typeof value === 'number') {
     assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
     value = BigInt(value);

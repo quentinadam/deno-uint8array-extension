@@ -1,9 +1,9 @@
 import setInt16 from './setInt16.ts';
 
-export default function setInt16BE(
-  target: Uint8Array<ArrayBuffer>,
+export default function setInt16BE<T extends ArrayBufferLike>(
+  target: Uint8Array<T>,
   offset: number,
   value: number | bigint,
-): Uint8Array<ArrayBuffer> {
+): Uint8Array<T> {
   return setInt16(target, offset, value, false);
 }

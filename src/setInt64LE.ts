@@ -1,9 +1,9 @@
 import setInt64 from './setInt64.ts';
 
-export default function setInt64LE(
-  target: Uint8Array<ArrayBuffer>,
+export default function setInt64LE<T extends ArrayBufferLike>(
+  target: Uint8Array<T>,
   offset: number,
   value: number | bigint,
-): Uint8Array<ArrayBuffer> {
+): Uint8Array<T> {
   return setInt64(target, offset, value, true);
 }

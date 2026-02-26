@@ -1,3 +1,3 @@
-export default function getDataView(buffer: Uint8Array<ArrayBuffer>): DataView {
-  return new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+export default function getDataView(bytes: Uint8Array): DataView {
+  return new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 }

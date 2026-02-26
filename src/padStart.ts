@@ -1,10 +1,14 @@
 import assert from '@quentinadam/assert';
 import concat from './concat.ts';
+import isArrayBufferBacked from './isArrayBufferBacked.ts';
 
-export default function padStart(target: Uint8Array<ArrayBuffer>, length: number): Uint8Array<ArrayBuffer> {
+export default function padStart(target: Uint8Array, length: number): Uint8Array<ArrayBuffer> {
   assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
   if (target.length >= length) {
-    return target;
+    if (isArrayBufferBacked(target)) {
+      return target;
+    }
+    return new Uint8Array(target);
   }
   return concat([new Uint8Array(length - target.length), target]);
 }

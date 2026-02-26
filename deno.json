@@ -55,6 +55,7 @@
     "./getUint32": "./src/getUint32.ts",
     "./getUint32BE": "./src/getUint32BE.ts",
     "./getUint32LE": "./src/getUint32LE.ts",
+    "./isArrayBufferBacked": "./src/isArrayBufferBacked.ts",
     "./padEnd": "./src/padEnd.ts",
     "./padStart": "./src/padStart.ts",
     "./setInt16": "./src/setInt16.ts",
