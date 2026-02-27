@@ -84,7 +84,7 @@
     "./toBigUintLE": "./src/toBigUintLE.ts"
   },
   "imports": {
-    "@quentinadam/assert": "jsr:@quentinadam/assert@^0.1.13",
+    "@quentinadam/assert": "jsr:@quentinadam/assert@^0.1.14",
     "typescript": "npm:typescript@^5.9.3"
   },
   "fmt": {
