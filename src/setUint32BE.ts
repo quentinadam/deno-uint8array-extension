@@ -1,3 +1,8 @@
+/**
+ * Writes an unsigned 32-bit big-endian integer to a Uint8Array at the specified offset.
+ *
+ * @module setUint32BE
+ */
 import setUint32 from './setUint32.ts';
 
 /**

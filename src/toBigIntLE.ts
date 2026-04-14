@@ -1,3 +1,8 @@
+/**
+ * Converts a little-endian Uint8Array to a signed bigint using two's complement.
+ *
+ * @module toBigIntLE
+ */
 import toBigInt from './toBigInt.ts';
 
 /**

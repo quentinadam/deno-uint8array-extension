@@ -1,3 +1,8 @@
+/**
+ * Writes an unsigned 16-bit integer to a Uint8Array at the specified offset.
+ *
+ * @module setUint16
+ */
 import assert from '@quentinadam/assert';
 import getDataView from './getDataView.ts';
 

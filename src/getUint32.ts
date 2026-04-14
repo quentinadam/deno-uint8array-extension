@@ -1,3 +1,8 @@
+/**
+ * Reads an unsigned 32-bit integer from a Uint8Array at the specified offset.
+ *
+ * @module getUint32
+ */
 import getDataView from './getDataView.ts';
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * Converts a little-endian Uint8Array to an unsigned bigint.
+ *
+ * @module toBigUintLE
+ */
 import toBigUint from './toBigUint.ts';
 
 /**

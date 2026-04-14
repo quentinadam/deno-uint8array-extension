@@ -1,3 +1,8 @@
+/**
+ * Writes a signed 64-bit little-endian integer to a Uint8Array at the specified offset.
+ *
+ * @module setInt64LE
+ */
 import setInt64 from './setInt64.ts';
 
 /**

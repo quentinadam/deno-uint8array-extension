@@ -1,3 +1,8 @@
+/**
+ * Reads an unsigned 16-bit integer from a Uint8Array at the specified offset.
+ *
+ * @module getUint16
+ */
 import getDataView from './getDataView.ts';
 
 /**

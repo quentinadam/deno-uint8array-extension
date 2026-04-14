@@ -1,3 +1,8 @@
+/**
+ * Creates a 4-byte big-endian Uint8Array from an unsigned 32-bit integer.
+ *
+ * @module fromUint32BE
+ */
 import fromUint32 from './fromUint32.ts';
 
 /**

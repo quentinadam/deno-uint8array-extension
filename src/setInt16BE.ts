@@ -1,3 +1,8 @@
+/**
+ * Writes a signed 16-bit big-endian integer to a Uint8Array at the specified offset.
+ *
+ * @module setInt16BE
+ */
 import setInt16 from './setInt16.ts';
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * Creates an 8-byte Uint8Array from an unsigned 64-bit integer.
+ *
+ * @module fromUint64
+ */
 import setUint64 from './setUint64.ts';
 
 /**

@@ -1,6 +1,12 @@
 /**
  * Compares two Uint8Arrays for byte-by-byte equality.
  *
+ * @module equals
+ */
+
+/**
+ * Compares two Uint8Arrays for byte-by-byte equality.
+ *
  * @example
  * ```ts
  * import { equals } from "@quentinadam/uint8array-extension";

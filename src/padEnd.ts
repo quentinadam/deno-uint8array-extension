@@ -1,3 +1,8 @@
+/**
+ * Pads a Uint8Array at the end with zero bytes to reach the specified length.
+ *
+ * @module padEnd
+ */
 import assert from '@quentinadam/assert';
 import concat from './concat.ts';
 import isArrayBufferBacked from './isArrayBufferBacked.ts';

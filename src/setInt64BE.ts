@@ -1,3 +1,8 @@
+/**
+ * Writes a signed 64-bit big-endian integer to a Uint8Array at the specified offset.
+ *
+ * @module setInt64BE
+ */
 import setInt64 from './setInt64.ts';
 
 /**

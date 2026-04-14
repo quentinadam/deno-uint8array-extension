@@ -1,3 +1,8 @@
+/**
+ * Creates an 8-byte little-endian Uint8Array from an unsigned 64-bit integer.
+ *
+ * @module fromUint64LE
+ */
 import fromUint64 from './fromUint64.ts';
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * Creates a 4-byte Uint8Array from an unsigned 32-bit integer.
+ *
+ * @module fromUint32
+ */
 import setUint32 from './setUint32.ts';
 
 /**

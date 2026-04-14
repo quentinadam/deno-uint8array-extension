@@ -30,7 +30,7 @@
  * assert(value === 1000);
  * ```
  *
- * @module
+ * @module Uint8ArrayExtension
  */
 
 import concat from './concat.ts';

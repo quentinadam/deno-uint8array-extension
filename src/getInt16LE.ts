@@ -1,3 +1,8 @@
+/**
+ * Reads a signed 16-bit little-endian integer from a Uint8Array at the specified offset.
+ *
+ * @module getInt16LE
+ */
 import getDataView from './getDataView.ts';
 
 /**

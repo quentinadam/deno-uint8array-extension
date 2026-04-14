@@ -1,3 +1,8 @@
+/**
+ * Creates an 8-byte big-endian Uint8Array from a signed 64-bit integer.
+ *
+ * @module fromInt64BE
+ */
 import fromInt64 from './fromInt64.ts';
 
 /**

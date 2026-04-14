@@ -1,3 +1,8 @@
+/**
+ * Reads an unsigned 32-bit big-endian integer from a Uint8Array at the specified offset.
+ *
+ * @module getUint32BE
+ */
 import getDataView from './getDataView.ts';
 
 /**
