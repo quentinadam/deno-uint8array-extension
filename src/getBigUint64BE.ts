@@ -1,7 +1,7 @@
 /**
  * Reads an unsigned 64-bit big-endian integer as a bigint from a Uint8Array at the specified offset.
  *
- * @module getBigUint64BE
+ * @module
  */
 import getDataView from './getDataView.ts';
 

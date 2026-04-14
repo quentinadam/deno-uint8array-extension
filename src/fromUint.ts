@@ -1,7 +1,7 @@
 /**
  * Creates a Uint8Array from an unsigned integer with configurable endianness.
  *
- * @module fromUint
+ * @module
  */
 import fromUintBE from './fromUintBE.ts';
 import fromUintLE from './fromUintLE.ts';

@@ -1,7 +1,7 @@
 /**
  * Creates a 4-byte little-endian Uint8Array from a signed 32-bit integer.
  *
- * @module fromInt32LE
+ * @module
  */
 import fromInt32 from './fromInt32.ts';
 

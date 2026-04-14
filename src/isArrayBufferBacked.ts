@@ -1,7 +1,7 @@
 /**
  * Type guard that checks if a Uint8Array is backed by an ArrayBuffer (not SharedArrayBuffer).
  *
- * @module isArrayBufferBacked
+ * @module
  */
 
 /**

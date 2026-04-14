@@ -1,7 +1,7 @@
 /**
  * Creates an 8-byte Uint8Array from a signed 64-bit integer.
  *
- * @module fromInt64
+ * @module
  */
 import setInt64 from './setInt64.ts';
 

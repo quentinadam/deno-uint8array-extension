@@ -1,7 +1,7 @@
 /**
  * Creates a 2-byte Uint8Array from an unsigned 16-bit integer.
  *
- * @module fromUint16
+ * @module
  */
 import setUint16 from './setUint16.ts';
 

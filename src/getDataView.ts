@@ -1,7 +1,7 @@
 /**
  * Creates a DataView for accessing the underlying buffer of a Uint8Array.
  *
- * @module getDataView
+ * @module
  */
 
 /**

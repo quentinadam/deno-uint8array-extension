@@ -1,7 +1,7 @@
 /**
  * Writes an unsigned 64-bit big-endian integer to a Uint8Array at the specified offset.
  *
- * @module setUint64BE
+ * @module
  */
 import setUint64 from './setUint64.ts';
 

@@ -1,7 +1,7 @@
 /**
  * Writes a signed 32-bit big-endian integer to a Uint8Array at the specified offset.
  *
- * @module setInt32BE
+ * @module
  */
 import setInt32 from './setInt32.ts';
 

@@ -1,7 +1,7 @@
 /**
  * Pads a Uint8Array at the start with zero bytes to reach the specified length.
  *
- * @module padStart
+ * @module
  */
 import assert from '@quentinadam/assert';
 import concat from './concat.ts';

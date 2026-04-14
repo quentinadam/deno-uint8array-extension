@@ -1,7 +1,7 @@
 /**
  * Reads an unsigned 32-bit little-endian integer from a Uint8Array at the specified offset.
  *
- * @module getUint32LE
+ * @module
  */
 import getDataView from './getDataView.ts';
 

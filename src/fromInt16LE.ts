@@ -1,7 +1,7 @@
 /**
  * Creates a 2-byte little-endian Uint8Array from a signed 16-bit integer.
  *
- * @module fromInt16LE
+ * @module
  */
 import fromInt16 from './fromInt16.ts';
 

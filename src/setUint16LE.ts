@@ -1,7 +1,7 @@
 /**
  * Writes an unsigned 16-bit little-endian integer to a Uint8Array at the specified offset.
  *
- * @module setUint16LE
+ * @module
  */
 import setUint16 from './setUint16.ts';
 

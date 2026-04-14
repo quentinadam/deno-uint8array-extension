@@ -1,7 +1,7 @@
 /**
  * Creates a 2-byte big-endian Uint8Array from an unsigned 16-bit integer.
  *
- * @module fromUint16BE
+ * @module
  */
 import fromUint16 from './fromUint16.ts';
 

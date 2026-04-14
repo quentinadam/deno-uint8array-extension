@@ -1,7 +1,7 @@
 /**
  * Creates a Uint8Array from a signed integer with configurable endianness using two's complement.
  *
- * @module fromInt
+ * @module
  */
 import fromIntBE from './fromIntBE.ts';
 import fromIntLE from './fromIntLE.ts';

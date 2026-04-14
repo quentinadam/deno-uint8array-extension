@@ -1,7 +1,7 @@
 /**
  * Converts a Uint8Array to an unsigned bigint.
  *
- * @module toBigUint
+ * @module
  */
 
 /**

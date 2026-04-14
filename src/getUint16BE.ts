@@ -1,7 +1,7 @@
 /**
  * Reads an unsigned 16-bit big-endian integer from a Uint8Array at the specified offset.
  *
- * @module getUint16BE
+ * @module
  */
 import getDataView from './getDataView.ts';
 

@@ -1,7 +1,7 @@
 /**
  * Concatenates multiple Uint8Arrays into a single Uint8Array.
  *
- * @module concat
+ * @module
  */
 
 /**

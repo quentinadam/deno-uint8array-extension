@@ -1,7 +1,7 @@
 /**
  * Writes an unsigned 32-bit little-endian integer to a Uint8Array at the specified offset.
  *
- * @module setUint32LE
+ * @module
  */
 import setUint32 from './setUint32.ts';
 
