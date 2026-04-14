@@ -1,5 +1,24 @@
 import setUint32 from './setUint32.ts';
 
+/**
+ * Writes an unsigned 32-bit big-endian integer to a Uint8Array at the specified offset.
+ *
+ * @example
+ * ```ts
+ * import { setUint32BE, equals } from "@quentinadam/uint8array-extension";
+ * import assert from "@quentinadam/assert";
+ *
+ * const bytes = new Uint8Array(8);
+ * setUint32BE(bytes, 0, 1000);
+ * assert(equals(bytes, new Uint8Array([0, 0, 3, 232, 0, 0, 0, 0])));
+ * ```
+ *
+ * @param target The Uint8Array to write to.
+ * @param offset The byte offset to start writing.
+ * @param value The unsigned 32-bit integer value (0 to 4294967295).
+ * @returns The modified Uint8Array (same reference as target).
+ * @throws If value is out of range for a 32-bit unsigned integer.
+ */
 export default function setUint32BE<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,

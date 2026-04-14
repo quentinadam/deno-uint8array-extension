@@ -1,5 +1,26 @@
 import assert from '@quentinadam/assert';
 
+/**
+ * Creates a little-endian Uint8Array from an unsigned integer.
+ *
+ * The output length is either the specified length or the minimum number of bytes
+ * required to represent the value.
+ *
+ * @example
+ * ```ts
+ * import { fromUintLE, equals } from "@quentinadam/uint8array-extension";
+ * import assert from "@quentinadam/assert";
+ *
+ * assert(equals(fromUintLE(1000), new Uint8Array([232, 3])));
+ * assert(equals(fromUintLE(1000, 4), new Uint8Array([232, 3, 0, 0])));
+ * assert(equals(fromUintLE(0x123456789ABCn), new Uint8Array([188, 154, 120, 86, 52, 18])));
+ * ```
+ *
+ * @param value The unsigned integer value to convert (number or bigint).
+ * @param length Optional fixed byte length for the output.
+ * @returns A little-endian Uint8Array representing the value.
+ * @throws If value is negative, not a safe integer (for numbers), or exceeds the specified length.
+ */
 export default function fromUintLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
   if (typeof value === 'number') {
     assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
