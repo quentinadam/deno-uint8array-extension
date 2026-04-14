@@ -3,7 +3,7 @@
  *
  * @module
  */
-import getDataView from './getDataView.ts';
+import { getDataView } from './getDataView.ts';
 
 /**
  * Reads a signed 64-bit little-endian integer as a bigint from a Uint8Array at the specified offset.
@@ -21,6 +21,6 @@ import getDataView from './getDataView.ts';
  * @param offset The byte offset to start reading.
  * @returns The signed 64-bit integer value as bigint.
  */
-export default function getBigInt64LE(target: Uint8Array, offset: number): bigint {
+export function getBigInt64LE(target: Uint8Array, offset: number): bigint {
   return getDataView(target).getBigInt64(offset, true);
 }

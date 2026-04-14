@@ -3,7 +3,7 @@
  *
  * @module
  */
-import setInt64 from './setInt64.ts';
+import { setInt64 } from './setInt64.ts';
 
 /**
  * Creates an 8-byte Uint8Array from a signed 64-bit integer.
@@ -22,6 +22,6 @@ import setInt64 from './setInt64.ts';
  * @returns An 8-byte Uint8Array representing the value.
  * @throws If value is out of range for a 64-bit signed integer.
  */
-export default function fromInt64(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
+export function fromInt64(value: number | bigint, littleEndian: boolean): Uint8Array<ArrayBuffer> {
   return setInt64(new Uint8Array(8), 0, value, littleEndian);
 }

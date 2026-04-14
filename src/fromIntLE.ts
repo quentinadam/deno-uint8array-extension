@@ -4,7 +4,7 @@
  * @module
  */
 import assert from '@quentinadam/assert';
-import fromUintLE from './fromUintLE.ts';
+import { fromUintLE } from './fromUintLE.ts';
 
 /**
  * Internal helper that creates little-endian bytes from a non-negative bigint,
@@ -51,7 +51,7 @@ function _fromIntLE(value: bigint, minimumLength: number, length?: number): numb
  * @returns A little-endian Uint8Array representing the value in two's complement.
  * @throws If value is not a safe integer (for numbers) or exceeds the specified length.
  */
-export default function fromIntLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
+export function fromIntLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
   if (typeof value === 'number') {
     assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
     value = BigInt(value);

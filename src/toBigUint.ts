@@ -24,7 +24,7 @@
  * @param littleEndian If true, interprets as little-endian; otherwise big-endian.
  * @returns The unsigned bigint value.
  */
-export default function toBigUint(target: Uint8Array, littleEndian: boolean): bigint {
+export function toBigUint(target: Uint8Array, littleEndian: boolean): bigint {
   const bytes = littleEndian ? target.toReversed() : target;
   let result = BigInt(0);
   for (const byte of bytes) {

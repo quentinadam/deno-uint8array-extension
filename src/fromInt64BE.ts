@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromInt64 from './fromInt64.ts';
+import { fromInt64 } from './fromInt64.ts';
 
 /**
  * Creates an 8-byte big-endian Uint8Array from a signed 64-bit integer.
@@ -21,6 +21,6 @@ import fromInt64 from './fromInt64.ts';
  * @returns An 8-byte big-endian Uint8Array representing the value.
  * @throws If value is out of range for a 64-bit signed integer.
  */
-export default function fromInt64BE(value: number | bigint): Uint8Array<ArrayBuffer> {
+export function fromInt64BE(value: number | bigint): Uint8Array<ArrayBuffer> {
   return fromInt64(value, false);
 }

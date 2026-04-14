@@ -3,7 +3,7 @@
  *
  * @module
  */
-import setUint64 from './setUint64.ts';
+import { setUint64 } from './setUint64.ts';
 
 /**
  * Writes an unsigned 64-bit big-endian integer to a Uint8Array at the specified offset.
@@ -24,7 +24,7 @@ import setUint64 from './setUint64.ts';
  * @returns The modified Uint8Array (same reference as target).
  * @throws If value is out of range for a 64-bit unsigned integer.
  */
-export default function setUint64BE<T extends ArrayBufferLike>(
+export function setUint64BE<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,
   value: number | bigint,

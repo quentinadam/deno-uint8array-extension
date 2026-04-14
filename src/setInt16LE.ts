@@ -3,7 +3,7 @@
  *
  * @module
  */
-import setInt16 from './setInt16.ts';
+import { setInt16 } from './setInt16.ts';
 
 /**
  * Writes a signed 16-bit little-endian integer to a Uint8Array at the specified offset.
@@ -24,7 +24,7 @@ import setInt16 from './setInt16.ts';
  * @returns The modified Uint8Array (same reference as target).
  * @throws If value is out of range for a 16-bit signed integer.
  */
-export default function setInt16LE<T extends ArrayBufferLike>(
+export function setInt16LE<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,
   value: number | bigint,

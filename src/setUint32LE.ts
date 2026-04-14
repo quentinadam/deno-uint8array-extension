@@ -3,7 +3,7 @@
  *
  * @module
  */
-import setUint32 from './setUint32.ts';
+import { setUint32 } from './setUint32.ts';
 
 /**
  * Writes an unsigned 32-bit little-endian integer to a Uint8Array at the specified offset.
@@ -24,7 +24,7 @@ import setUint32 from './setUint32.ts';
  * @returns The modified Uint8Array (same reference as target).
  * @throws If value is out of range for a 32-bit unsigned integer.
  */
-export default function setUint32LE<T extends ArrayBufferLike>(
+export function setUint32LE<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,
   value: number | bigint,

@@ -137,6 +137,15 @@ Suffixes:
 - `toBigUintBE(bytes)` - Unsigned bigint
 - `toBigIntBE(bytes)` - Signed bigint (two's complement)
 
+### Array Utilities
+
+- `concat(buffers)` - Concatenate multiple Uint8Arrays into one
+- `equals(a, b)` - Compare two Uint8Arrays for byte-by-byte equality
+- `padStart(bytes, length)` - Pad array at the start with zero bytes
+- `padEnd(bytes, length)` - Pad array at the end with zero bytes
+- `getDataView(bytes)` - Create a DataView for the underlying buffer
+- `isArrayBufferBacked(bytes)` - Check if backed by ArrayBuffer (not SharedArrayBuffer)
+
 ## Import Styles
 
 ### 1. Named Exports (Recommended)
@@ -152,12 +161,12 @@ assert(getUint32BE(bytes, 0) === 1000);
 assert(equals(bytes, new Uint8Array([0, 0, 3, 232])));
 ```
 
-### 2. Default Export with Static Methods
+### 2. Named Export with Static Methods
 
 Use the class directly for static method calls.
 
 ```ts
-import Uint8ArrayExtension from '@quentinadam/uint8array-extension';
+import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
 import assert from '@quentinadam/assert';
 
 const bytes = Uint8ArrayExtension.fromUint32BE(1000);
@@ -167,12 +176,12 @@ const combined = Uint8ArrayExtension.concat([new Uint8Array([1, 2]), new Uint8Ar
 assert(Uint8ArrayExtension.equals(combined, new Uint8Array([1, 2, 3, 4])));
 ```
 
-### 3. Default Export with Instance Methods
+### 3. Named Export with Instance Methods
 
 Wrap an existing Uint8Array to use instance methods.
 
 ```ts
-import Uint8ArrayExtension from '@quentinadam/uint8array-extension';
+import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
 import assert from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
@@ -190,9 +199,9 @@ assert(ext.getUint16BE(0) === 500);
 Import individual functions from their own modules for the smallest bundle size.
 
 ```ts
-import equals from '@quentinadam/uint8array-extension/equals';
-import fromUint32BE from '@quentinadam/uint8array-extension/fromUint32BE';
-import getUint32BE from '@quentinadam/uint8array-extension/getUint32BE';
+import { equals } from '@quentinadam/uint8array-extension/equals';
+import { fromUint32BE } from '@quentinadam/uint8array-extension/fromUint32BE';
+import { getUint32BE } from '@quentinadam/uint8array-extension/getUint32BE';
 import assert from '@quentinadam/assert';
 
 const bytes = fromUint32BE(1000);

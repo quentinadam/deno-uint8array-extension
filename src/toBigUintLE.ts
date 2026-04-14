@@ -3,7 +3,7 @@
  *
  * @module
  */
-import toBigUint from './toBigUint.ts';
+import { toBigUint } from './toBigUint.ts';
 
 /**
  * Converts a little-endian Uint8Array to an unsigned bigint.
@@ -23,6 +23,6 @@ import toBigUint from './toBigUint.ts';
  * @param target The Uint8Array to convert.
  * @returns The unsigned bigint value.
  */
-export default function toBigUintLE(target: Uint8Array): bigint {
+export function toBigUintLE(target: Uint8Array): bigint {
   return toBigUint(target, true);
 }

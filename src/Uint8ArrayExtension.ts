@@ -1,110 +1,91 @@
 /**
- * A library of Uint8Array extension functions for reading, writing, and manipulating binary data.
+ * Uint8ArrayExtension class for wrapping Uint8Array with convenient methods.
  *
- * This module provides utilities for working with Uint8Array, including:
- * - Reading and writing integers of various sizes (16, 32, 64-bit) with endianness control
- * - Converting between integers and byte arrays
- * - Array manipulation (concat, equals, padding)
- *
- * @example Using the Uint8ArrayExtension class
+ * @example
  * ```ts
- * import Uint8ArrayExtension from "@quentinadam/uint8array-extension";
+ * import { Uint8ArrayExtension } from "@quentinadam/uint8array-extension/Uint8ArrayExtension";
  * import assert from "@quentinadam/assert";
  *
- * // Create a Uint8Array from a 32-bit unsigned integer (big-endian)
- * const bytes = Uint8ArrayExtension.fromUint32BE(1000);
- * assert(Uint8ArrayExtension.equals(bytes, new Uint8Array([0, 0, 3, 232])));
- *
- * // Read a value back from the array
- * const value = new Uint8ArrayExtension(bytes).getUint32BE(0);
- * assert(value === 1000);
+ * const bytes = new Uint8Array([0, 0, 3, 232]);
+ * const ext = new Uint8ArrayExtension(bytes);
+ * assert(ext.getUint32BE(0) === 1000);
  * ```
  *
- * @example Using standalone functions
- * ```ts
- * import { concat, fromUint32BE, getUint32BE } from "@quentinadam/uint8array-extension";
- * import assert from "@quentinadam/assert";
- *
- * const bytes = fromUint32BE(1000);
- * const value = getUint32BE(bytes, 0);
- * assert(value === 1000);
- * ```
- *
- * @module Uint8ArrayExtension
+ * @module
  */
 
-import concat from './concat.ts';
-import equals from './equals.ts';
-import fromInt from './fromInt.ts';
-import fromInt16 from './fromInt16.ts';
-import fromInt16BE from './fromInt16BE.ts';
-import fromInt16LE from './fromInt16LE.ts';
-import fromInt32 from './fromInt32.ts';
-import fromInt32BE from './fromInt32BE.ts';
-import fromInt32LE from './fromInt32LE.ts';
-import fromInt64 from './fromInt64.ts';
-import fromInt64BE from './fromInt64BE.ts';
-import fromInt64LE from './fromInt64LE.ts';
-import fromIntBE from './fromIntBE.ts';
-import fromIntLE from './fromIntLE.ts';
-import fromUint from './fromUint.ts';
-import fromUint16 from './fromUint16.ts';
-import fromUint16BE from './fromUint16BE.ts';
-import fromUint16LE from './fromUint16LE.ts';
-import fromUint32 from './fromUint32.ts';
-import fromUint32BE from './fromUint32BE.ts';
-import fromUint32LE from './fromUint32LE.ts';
-import fromUint64 from './fromUint64.ts';
-import fromUint64BE from './fromUint64BE.ts';
-import fromUint64LE from './fromUint64LE.ts';
-import fromUintBE from './fromUintBE.ts';
-import fromUintLE from './fromUintLE.ts';
-import getBigInt64 from './getBigInt64.ts';
-import getBigInt64BE from './getBigInt64BE.ts';
-import getBigInt64LE from './getBigInt64LE.ts';
-import getBigUint64 from './getBigUint64.ts';
-import getBigUint64BE from './getBigUint64BE.ts';
-import getBigUint64LE from './getBigUint64LE.ts';
-import getDataView from './getDataView.ts';
-import getInt16 from './getInt16.ts';
-import getInt16BE from './getInt16BE.ts';
-import getInt16LE from './getInt16LE.ts';
-import getInt32 from './getInt32.ts';
-import getInt32BE from './getInt32BE.ts';
-import getInt32LE from './getInt32LE.ts';
-import getUint16 from './getUint16.ts';
-import getUint16BE from './getUint16BE.ts';
-import getUint16LE from './getUint16LE.ts';
-import getUint32 from './getUint32.ts';
-import getUint32BE from './getUint32BE.ts';
-import getUint32LE from './getUint32LE.ts';
-import isArrayBufferBacked from './isArrayBufferBacked.ts';
-import padEnd from './padEnd.ts';
-import padStart from './padStart.ts';
-import setInt16 from './setInt16.ts';
-import setInt16BE from './setInt16BE.ts';
-import setInt16LE from './setInt16LE.ts';
-import setInt32 from './setInt32.ts';
-import setInt32BE from './setInt32BE.ts';
-import setInt32LE from './setInt32LE.ts';
-import setInt64 from './setInt64.ts';
-import setInt64BE from './setInt64BE.ts';
-import setInt64LE from './setInt64LE.ts';
-import setUint16 from './setUint16.ts';
-import setUint16BE from './setUint16BE.ts';
-import setUint16LE from './setUint16LE.ts';
-import setUint32 from './setUint32.ts';
-import setUint32BE from './setUint32BE.ts';
-import setUint32LE from './setUint32LE.ts';
-import setUint64 from './setUint64.ts';
-import setUint64BE from './setUint64BE.ts';
-import setUint64LE from './setUint64LE.ts';
-import toBigInt from './toBigInt.ts';
-import toBigIntBE from './toBigIntBE.ts';
-import toBigIntLE from './toBigIntLE.ts';
-import toBigUint from './toBigUint.ts';
-import toBigUintBE from './toBigUintBE.ts';
-import toBigUintLE from './toBigUintLE.ts';
+import { concat } from './concat.ts';
+import { equals } from './equals.ts';
+import { fromInt } from './fromInt.ts';
+import { fromInt16 } from './fromInt16.ts';
+import { fromInt16BE } from './fromInt16BE.ts';
+import { fromInt16LE } from './fromInt16LE.ts';
+import { fromInt32 } from './fromInt32.ts';
+import { fromInt32BE } from './fromInt32BE.ts';
+import { fromInt32LE } from './fromInt32LE.ts';
+import { fromInt64 } from './fromInt64.ts';
+import { fromInt64BE } from './fromInt64BE.ts';
+import { fromInt64LE } from './fromInt64LE.ts';
+import { fromIntBE } from './fromIntBE.ts';
+import { fromIntLE } from './fromIntLE.ts';
+import { fromUint } from './fromUint.ts';
+import { fromUint16 } from './fromUint16.ts';
+import { fromUint16BE } from './fromUint16BE.ts';
+import { fromUint16LE } from './fromUint16LE.ts';
+import { fromUint32 } from './fromUint32.ts';
+import { fromUint32BE } from './fromUint32BE.ts';
+import { fromUint32LE } from './fromUint32LE.ts';
+import { fromUint64 } from './fromUint64.ts';
+import { fromUint64BE } from './fromUint64BE.ts';
+import { fromUint64LE } from './fromUint64LE.ts';
+import { fromUintBE } from './fromUintBE.ts';
+import { fromUintLE } from './fromUintLE.ts';
+import { getBigInt64 } from './getBigInt64.ts';
+import { getBigInt64BE } from './getBigInt64BE.ts';
+import { getBigInt64LE } from './getBigInt64LE.ts';
+import { getBigUint64 } from './getBigUint64.ts';
+import { getBigUint64BE } from './getBigUint64BE.ts';
+import { getBigUint64LE } from './getBigUint64LE.ts';
+import { getDataView } from './getDataView.ts';
+import { getInt16 } from './getInt16.ts';
+import { getInt16BE } from './getInt16BE.ts';
+import { getInt16LE } from './getInt16LE.ts';
+import { getInt32 } from './getInt32.ts';
+import { getInt32BE } from './getInt32BE.ts';
+import { getInt32LE } from './getInt32LE.ts';
+import { getUint16 } from './getUint16.ts';
+import { getUint16BE } from './getUint16BE.ts';
+import { getUint16LE } from './getUint16LE.ts';
+import { getUint32 } from './getUint32.ts';
+import { getUint32BE } from './getUint32BE.ts';
+import { getUint32LE } from './getUint32LE.ts';
+import { isArrayBufferBacked } from './isArrayBufferBacked.ts';
+import { padEnd } from './padEnd.ts';
+import { padStart } from './padStart.ts';
+import { setInt16 } from './setInt16.ts';
+import { setInt16BE } from './setInt16BE.ts';
+import { setInt16LE } from './setInt16LE.ts';
+import { setInt32 } from './setInt32.ts';
+import { setInt32BE } from './setInt32BE.ts';
+import { setInt32LE } from './setInt32LE.ts';
+import { setInt64 } from './setInt64.ts';
+import { setInt64BE } from './setInt64BE.ts';
+import { setInt64LE } from './setInt64LE.ts';
+import { setUint16 } from './setUint16.ts';
+import { setUint16BE } from './setUint16BE.ts';
+import { setUint16LE } from './setUint16LE.ts';
+import { setUint32 } from './setUint32.ts';
+import { setUint32BE } from './setUint32BE.ts';
+import { setUint32LE } from './setUint32LE.ts';
+import { setUint64 } from './setUint64.ts';
+import { setUint64BE } from './setUint64BE.ts';
+import { setUint64LE } from './setUint64LE.ts';
+import { toBigInt } from './toBigInt.ts';
+import { toBigIntBE } from './toBigIntBE.ts';
+import { toBigIntLE } from './toBigIntLE.ts';
+import { toBigUint } from './toBigUint.ts';
+import { toBigUintBE } from './toBigUintBE.ts';
+import { toBigUintLE } from './toBigUintLE.ts';
 
 /**
  * A wrapper class that provides extension methods for Uint8Array manipulation.
@@ -115,7 +96,7 @@ import toBigUintLE from './toBigUintLE.ts';
  *
  * @example Instance methods
  * ```ts
- * import Uint8ArrayExtension from "@quentinadam/uint8array-extension";
+ * import { Uint8ArrayExtension } from "@quentinadam/uint8array-extension";
  * import assert from "@quentinadam/assert";
  *
  * const bytes = new Uint8Array([0, 0, 3, 232]);
@@ -125,7 +106,7 @@ import toBigUintLE from './toBigUintLE.ts';
  *
  * @example Static methods
  * ```ts
- * import Uint8ArrayExtension from "@quentinadam/uint8array-extension";
+ * import { Uint8ArrayExtension } from "@quentinadam/uint8array-extension";
  * import assert from "@quentinadam/assert";
  *
  * const bytes = Uint8ArrayExtension.fromUint32BE(1000);
@@ -134,7 +115,7 @@ import toBigUintLE from './toBigUintLE.ts';
  *
  * @template T The type of ArrayBuffer backing the Uint8Array.
  */
-export default class Uint8ArrayExtension<T extends ArrayBufferLike> {
+export class Uint8ArrayExtension<T extends ArrayBufferLike> {
   /** The underlying Uint8Array wrapped by this instance. */
   readonly bytes: Uint8Array<T>;
 
@@ -851,78 +832,3 @@ export default class Uint8ArrayExtension<T extends ArrayBufferLike> {
     return fromUintLE(value, length);
   }
 }
-
-export {
-  concat,
-  equals,
-  fromInt,
-  fromInt16,
-  fromInt16BE,
-  fromInt16LE,
-  fromInt32,
-  fromInt32BE,
-  fromInt32LE,
-  fromInt64,
-  fromInt64BE,
-  fromInt64LE,
-  fromIntBE,
-  fromIntLE,
-  fromUint,
-  fromUint16,
-  fromUint16BE,
-  fromUint16LE,
-  fromUint32,
-  fromUint32BE,
-  fromUint32LE,
-  fromUint64,
-  fromUint64BE,
-  fromUint64LE,
-  fromUintBE,
-  fromUintLE,
-  getBigInt64,
-  getBigInt64BE,
-  getBigInt64LE,
-  getBigUint64,
-  getBigUint64BE,
-  getBigUint64LE,
-  getDataView,
-  getInt16,
-  getInt16BE,
-  getInt16LE,
-  getInt32,
-  getInt32BE,
-  getInt32LE,
-  getUint16,
-  getUint16BE,
-  getUint16LE,
-  getUint32,
-  getUint32BE,
-  getUint32LE,
-  isArrayBufferBacked,
-  padEnd,
-  padStart,
-  setInt16,
-  setInt16BE,
-  setInt16LE,
-  setInt32,
-  setInt32BE,
-  setInt32LE,
-  setInt64,
-  setInt64BE,
-  setInt64LE,
-  setUint16,
-  setUint16BE,
-  setUint16LE,
-  setUint32,
-  setUint32BE,
-  setUint32LE,
-  setUint64,
-  setUint64BE,
-  setUint64LE,
-  toBigInt,
-  toBigIntBE,
-  toBigIntLE,
-  toBigUint,
-  toBigUintBE,
-  toBigUintLE,
-};

@@ -3,7 +3,7 @@
  *
  * @module
  */
-import toBigInt from './toBigInt.ts';
+import { toBigInt } from './toBigInt.ts';
 
 /**
  * Converts a big-endian Uint8Array to a signed bigint using two's complement.
@@ -23,6 +23,6 @@ import toBigInt from './toBigInt.ts';
  * @param target The Uint8Array to convert.
  * @returns The signed bigint value.
  */
-export default function toBigIntBE(target: Uint8Array): bigint {
+export function toBigIntBE(target: Uint8Array): bigint {
   return toBigInt(target, false);
 }

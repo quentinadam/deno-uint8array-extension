@@ -4,7 +4,7 @@
  * @module
  */
 import assert from '@quentinadam/assert';
-import getDataView from './getDataView.ts';
+import { getDataView } from './getDataView.ts';
 
 /**
  * Writes an unsigned 32-bit integer to a Uint8Array at the specified offset.
@@ -28,7 +28,7 @@ import getDataView from './getDataView.ts';
  * @returns The modified Uint8Array (same reference as target).
  * @throws If value is out of range for a 32-bit unsigned integer.
  */
-export default function setUint32<T extends ArrayBufferLike>(
+export function setUint32<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,
   value: number | bigint,

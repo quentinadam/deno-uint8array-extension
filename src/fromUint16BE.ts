@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromUint16 from './fromUint16.ts';
+import { fromUint16 } from './fromUint16.ts';
 
 /**
  * Creates a 2-byte big-endian Uint8Array from an unsigned 16-bit integer.
@@ -21,6 +21,6 @@ import fromUint16 from './fromUint16.ts';
  * @returns A 2-byte big-endian Uint8Array representing the value.
  * @throws If value is out of range for a 16-bit unsigned integer.
  */
-export default function fromUint16BE(value: number | bigint): Uint8Array<ArrayBuffer> {
+export function fromUint16BE(value: number | bigint): Uint8Array<ArrayBuffer> {
   return fromUint16(value, false);
 }

@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromUint64 from './fromUint64.ts';
+import { fromUint64 } from './fromUint64.ts';
 
 /**
  * Creates an 8-byte little-endian Uint8Array from an unsigned 64-bit integer.
@@ -20,6 +20,6 @@ import fromUint64 from './fromUint64.ts';
  * @returns An 8-byte little-endian Uint8Array representing the value.
  * @throws If value is out of range for a 64-bit unsigned integer.
  */
-export default function fromUint64LE(value: number | bigint): Uint8Array<ArrayBuffer> {
+export function fromUint64LE(value: number | bigint): Uint8Array<ArrayBuffer> {
   return fromUint64(value, true);
 }

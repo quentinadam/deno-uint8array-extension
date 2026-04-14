@@ -3,8 +3,8 @@
  *
  * @module
  */
-import fromUintBE from './fromUintBE.ts';
-import fromUintLE from './fromUintLE.ts';
+import { fromUintBE } from './fromUintBE.ts';
+import { fromUintLE } from './fromUintLE.ts';
 
 /**
  * Creates a Uint8Array from an unsigned integer with configurable endianness.
@@ -28,7 +28,7 @@ import fromUintLE from './fromUintLE.ts';
  * @returns A Uint8Array representing the value in the specified byte order.
  * @throws If value is negative, not a safe integer (for numbers), or exceeds the specified length.
  */
-export default function fromUint(
+export function fromUint(
   value: number | bigint,
   littleEndian: boolean,
   length?: number,

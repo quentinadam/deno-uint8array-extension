@@ -24,6 +24,6 @@
  * @param bytes The Uint8Array to create a DataView for.
  * @returns A DataView for the buffer region covered by the Uint8Array.
  */
-export default function getDataView(bytes: Uint8Array): DataView {
+export function getDataView(bytes: Uint8Array): DataView {
   return new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 }

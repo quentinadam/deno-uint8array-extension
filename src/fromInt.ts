@@ -3,8 +3,8 @@
  *
  * @module
  */
-import fromIntBE from './fromIntBE.ts';
-import fromIntLE from './fromIntLE.ts';
+import { fromIntBE } from './fromIntBE.ts';
+import { fromIntLE } from './fromIntLE.ts';
 
 /**
  * Creates a Uint8Array from a signed integer with configurable endianness using two's complement.
@@ -28,7 +28,7 @@ import fromIntLE from './fromIntLE.ts';
  * @returns A Uint8Array representing the value in two's complement.
  * @throws If value is not a safe integer (for numbers) or exceeds the specified length.
  */
-export default function fromInt(
+export function fromInt(
   value: number | bigint,
   littleEndian: boolean,
   length?: number,

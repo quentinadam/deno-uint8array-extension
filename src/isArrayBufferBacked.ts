@@ -23,6 +23,6 @@
  * @param target The Uint8Array to check.
  * @returns True if the Uint8Array is backed by an ArrayBuffer, false if backed by SharedArrayBuffer.
  */
-export default function isArrayBufferBacked(target: Uint8Array<ArrayBufferLike>): target is Uint8Array<ArrayBuffer> {
+export function isArrayBufferBacked(target: Uint8Array<ArrayBufferLike>): target is Uint8Array<ArrayBuffer> {
   return target.buffer instanceof ArrayBuffer;
 }

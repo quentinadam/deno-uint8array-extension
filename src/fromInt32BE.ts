@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromInt32 from './fromInt32.ts';
+import { fromInt32 } from './fromInt32.ts';
 
 /**
  * Creates a 4-byte big-endian Uint8Array from a signed 32-bit integer.
@@ -21,6 +21,6 @@ import fromInt32 from './fromInt32.ts';
  * @returns A 4-byte big-endian Uint8Array representing the value.
  * @throws If value is out of range for a 32-bit signed integer.
  */
-export default function fromInt32BE(value: number | bigint): Uint8Array<ArrayBuffer> {
+export function fromInt32BE(value: number | bigint): Uint8Array<ArrayBuffer> {
   return fromInt32(value, false);
 }

@@ -3,7 +3,7 @@
  *
  * @module
  */
-import setInt64 from './setInt64.ts';
+import { setInt64 } from './setInt64.ts';
 
 /**
  * Writes a signed 64-bit little-endian integer to a Uint8Array at the specified offset.
@@ -24,7 +24,7 @@ import setInt64 from './setInt64.ts';
  * @returns The modified Uint8Array (same reference as target).
  * @throws If value is out of range for a 64-bit signed integer.
  */
-export default function setInt64LE<T extends ArrayBufferLike>(
+export function setInt64LE<T extends ArrayBufferLike>(
   target: Uint8Array<T>,
   offset: number,
   value: number | bigint,

@@ -3,7 +3,7 @@
  *
  * @module
  */
-import getDataView from './getDataView.ts';
+import { getDataView } from './getDataView.ts';
 
 /**
  * Reads an unsigned 32-bit integer from a Uint8Array at the specified offset.
@@ -23,6 +23,6 @@ import getDataView from './getDataView.ts';
  * @param littleEndian If true, reads as little-endian; otherwise big-endian.
  * @returns The unsigned 32-bit integer value (0 to 4294967295).
  */
-export default function getUint32(target: Uint8Array, offset: number, littleEndian: boolean): number {
+export function getUint32(target: Uint8Array, offset: number, littleEndian: boolean): number {
   return getDataView(target).getUint32(offset, littleEndian);
 }

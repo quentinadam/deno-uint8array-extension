@@ -3,7 +3,7 @@
  *
  * @module
  */
-import getDataView from './getDataView.ts';
+import { getDataView } from './getDataView.ts';
 
 /**
  * Reads a signed 32-bit little-endian integer from a Uint8Array at the specified offset.
@@ -21,6 +21,6 @@ import getDataView from './getDataView.ts';
  * @param offset The byte offset to start reading.
  * @returns The signed 32-bit integer value (-2147483648 to 2147483647).
  */
-export default function getInt32LE(target: Uint8Array, offset: number): number {
+export function getInt32LE(target: Uint8Array, offset: number): number {
   return getDataView(target).getInt32(offset, true);
 }

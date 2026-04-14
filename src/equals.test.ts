@@ -1,5 +1,5 @@
 import assert from '@quentinadam/assert';
-import equals from './equals.ts';
+import { equals } from './equals.ts';
 
 Deno.test('equals', () => {
   const vectors = [

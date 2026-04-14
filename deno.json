@@ -9,7 +9,8 @@
     "url": "git+https://github.com/quentinadam/deno-uint8array-extension.git"
   },
   "exports": {
-    ".": "./src/Uint8ArrayExtension.ts",
+    ".": "./src/mod.ts",
+    "./Uint8ArrayExtension": "./src/Uint8ArrayExtension.ts",
     "./concat": "./src/concat.ts",
     "./equals": "./src/equals.ts",
     "./fromInt": "./src/fromInt.ts",

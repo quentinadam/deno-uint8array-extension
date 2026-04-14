@@ -4,8 +4,8 @@
  * @module
  */
 import assert from '@quentinadam/assert';
-import concat from './concat.ts';
-import isArrayBufferBacked from './isArrayBufferBacked.ts';
+import { concat } from './concat.ts';
+import { isArrayBufferBacked } from './isArrayBufferBacked.ts';
 
 /**
  * Pads a Uint8Array at the end with zero bytes to reach the specified length.
@@ -28,7 +28,7 @@ import isArrayBufferBacked from './isArrayBufferBacked.ts';
  * @returns A Uint8Array of at least the specified length, padded with trailing zeros if necessary.
  * @throws If length is not a safe integer.
  */
-export default function padEnd(target: Uint8Array, length: number): Uint8Array<ArrayBuffer> {
+export function padEnd(target: Uint8Array, length: number): Uint8Array<ArrayBuffer> {
   assert(Number.isSafeInteger(length), `Length ${length} is not a safe integer`);
   if (target.length >= length) {
     if (isArrayBufferBacked(target)) {

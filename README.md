@@ -35,7 +35,7 @@ There are four ways to consume this library:
 Create an instance wrapping an existing Uint8Array to access all methods:
 
 ```ts
-import Uint8ArrayExtension, { equals } from '@quentinadam/uint8array-extension';
+import { equals, Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
 import assert from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
@@ -58,7 +58,7 @@ assert(ext.toBigUintBE() === 65537000n);
 Call static methods directly on the Uint8ArrayExtension class:
 
 ```ts
-import Uint8ArrayExtension from '@quentinadam/uint8array-extension';
+import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
 import assert from '@quentinadam/assert';
 
 // Create byte arrays from values
@@ -96,8 +96,8 @@ assert(equals(combined, new Uint8Array([1, 2, 3, 4])));
 Import individual functions from their own modules for the smallest possible bundle:
 
 ```ts
-import fromUint32BE from '@quentinadam/uint8array-extension/fromUint32BE';
-import getUint32BE from '@quentinadam/uint8array-extension/getUint32BE';
+import { fromUint32BE } from '@quentinadam/uint8array-extension/fromUint32BE';
+import { getUint32BE } from '@quentinadam/uint8array-extension/getUint32BE';
 import assert from '@quentinadam/assert';
 
 const bytes = fromUint32BE(1000);

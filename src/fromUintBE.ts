@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromUintLE from './fromUintLE.ts';
+import { fromUintLE } from './fromUintLE.ts';
 
 /**
  * Creates a big-endian Uint8Array from an unsigned integer.
@@ -26,6 +26,6 @@ import fromUintLE from './fromUintLE.ts';
  * @returns A big-endian Uint8Array representing the value.
  * @throws If value is negative, not a safe integer (for numbers), or exceeds the specified length.
  */
-export default function fromUintBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
+export function fromUintBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
   return fromUintLE(value, length).reverse();
 }

@@ -26,7 +26,7 @@ import assert from '@quentinadam/assert';
  * @returns A little-endian Uint8Array representing the value.
  * @throws If value is negative, not a safe integer (for numbers), or exceeds the specified length.
  */
-export default function fromUintLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
+export function fromUintLE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
   if (typeof value === 'number') {
     assert(Number.isSafeInteger(value), `Value ${value} is not a safe integer`);
     value = BigInt(value);

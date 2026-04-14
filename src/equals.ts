@@ -20,7 +20,7 @@
  * @param b The second Uint8Array to compare.
  * @returns True if both arrays have the same length and identical bytes, false otherwise.
  */
-export default function equals(a: Uint8Array, b: Uint8Array): boolean {
+export function equals(a: Uint8Array, b: Uint8Array): boolean {
   if (a.length !== b.length) {
     return false;
   }

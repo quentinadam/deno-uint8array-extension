@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromUint32 from './fromUint32.ts';
+import { fromUint32 } from './fromUint32.ts';
 
 /**
  * Creates a 4-byte little-endian Uint8Array from an unsigned 32-bit integer.
@@ -21,6 +21,6 @@ import fromUint32 from './fromUint32.ts';
  * @returns A 4-byte little-endian Uint8Array representing the value.
  * @throws If value is out of range for a 32-bit unsigned integer.
  */
-export default function fromUint32LE(value: number | bigint): Uint8Array<ArrayBuffer> {
+export function fromUint32LE(value: number | bigint): Uint8Array<ArrayBuffer> {
   return fromUint32(value, true);
 }

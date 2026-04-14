@@ -3,7 +3,7 @@
  *
  * @module
  */
-import fromIntLE from './fromIntLE.ts';
+import { fromIntLE } from './fromIntLE.ts';
 
 /**
  * Creates a big-endian Uint8Array from a signed integer using two's complement.
@@ -28,6 +28,6 @@ import fromIntLE from './fromIntLE.ts';
  * @returns A big-endian Uint8Array representing the value in two's complement.
  * @throws If value is not a safe integer (for numbers) or exceeds the specified length.
  */
-export default function fromIntBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
+export function fromIntBE(value: number | bigint, length?: number): Uint8Array<ArrayBuffer> {
   return fromIntLE(value, length).reverse();
 }

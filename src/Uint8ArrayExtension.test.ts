@@ -1,6 +1,6 @@
 import assert from '@quentinadam/assert';
-import Uint8ArrayExtension from './Uint8ArrayExtension.ts';
-import equals from './equals.ts';
+import { Uint8ArrayExtension } from './Uint8ArrayExtension.ts';
+import { equals } from './equals.ts';
 
 Deno.test('concat', () => {
   const ext = new Uint8ArrayExtension(new Uint8Array([1, 2]));

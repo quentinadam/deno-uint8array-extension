@@ -3,7 +3,7 @@
  *
  * @module
  */
-import getDataView from './getDataView.ts';
+import { getDataView } from './getDataView.ts';
 
 /**
  * Reads a signed 16-bit big-endian integer from a Uint8Array at the specified offset.
@@ -21,6 +21,6 @@ import getDataView from './getDataView.ts';
  * @param offset The byte offset to start reading.
  * @returns The signed 16-bit integer value (-32768 to 32767).
  */
-export default function getInt16BE(target: Uint8Array, offset: number): number {
+export function getInt16BE(target: Uint8Array, offset: number): number {
   return getDataView(target).getInt16(offset, false);
 }
