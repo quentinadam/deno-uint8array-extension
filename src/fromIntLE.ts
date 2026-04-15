@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 import { fromUintLE } from './fromUintLE.ts';
 
 /**

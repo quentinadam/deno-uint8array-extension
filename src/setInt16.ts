@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 import { getDataView } from './getDataView.ts';
 
 /**

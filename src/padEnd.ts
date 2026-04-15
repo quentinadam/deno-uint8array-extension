@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 import { concat } from './concat.ts';
 import { isArrayBufferBacked } from './isArrayBufferBacked.ts';
 

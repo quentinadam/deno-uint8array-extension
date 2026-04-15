@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 /**
  * Creates a little-endian Uint8Array from an unsigned integer.

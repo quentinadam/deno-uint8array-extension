@@ -36,7 +36,7 @@ Create an instance wrapping an existing Uint8Array to access all methods:
 
 ```ts
 import { equals, Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 const ext = new Uint8ArrayExtension(bytes);
@@ -59,7 +59,7 @@ Call static methods directly on the Uint8ArrayExtension class:
 
 ```ts
 import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 // Create byte arrays from values
 const bytes = Uint8ArrayExtension.fromUint32BE(1000);
@@ -82,7 +82,7 @@ Import specific functions for smaller bundle sizes:
 
 ```ts
 import { concat, equals, fromUint32BE, getUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = fromUint32BE(1000);
 assert(getUint32BE(bytes, 0) === 1000);
@@ -101,7 +101,7 @@ Concatenates multiple Uint8Arrays into a single array.
 
 ```ts
 import { concat, equals } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(concat([new Uint8Array([1, 2]), new Uint8Array([3, 4])]), new Uint8Array([1, 2, 3, 4])));
 ```
@@ -112,7 +112,7 @@ Compares two Uint8Arrays for byte-by-byte equality.
 
 ```ts
 import { equals } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(new Uint8Array([1, 2, 3]), new Uint8Array([1, 2, 3])) === true);
 assert(equals(new Uint8Array([1, 2, 3]), new Uint8Array([1, 2, 4])) === false);
@@ -124,7 +124,7 @@ Pads the array at the start with zero bytes to reach the specified length.
 
 ```ts
 import { equals, padStart } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(padStart(new Uint8Array([1, 2, 3]), 5), new Uint8Array([0, 0, 1, 2, 3])));
 ```
@@ -135,7 +135,7 @@ Pads the array at the end with zero bytes to reach the specified length.
 
 ```ts
 import { equals, padEnd } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(padEnd(new Uint8Array([1, 2, 3]), 5), new Uint8Array([1, 2, 3, 0, 0])));
 ```
@@ -146,7 +146,7 @@ Creates a DataView for accessing the underlying buffer.
 
 ```ts
 import { getDataView } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const view = getDataView(new Uint8Array([0, 0, 3, 232]));
 assert(view.getUint32(0, false) === 1000);
@@ -158,7 +158,7 @@ Type guard checking if the Uint8Array is backed by an ArrayBuffer (not SharedArr
 
 ```ts
 import { isArrayBufferBacked } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(isArrayBufferBacked(new Uint8Array([1, 2, 3])) === true);
 ```
@@ -183,7 +183,7 @@ These functions create Uint8Arrays from integer values. Each comes in three vari
 
 ```ts
 import { equals, fromUint16BE, fromUint32BE, fromUint64BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(fromUint16BE(1000), new Uint8Array([3, 232])));
 assert(equals(fromUint32BE(1000), new Uint8Array([0, 0, 3, 232])));
@@ -200,7 +200,7 @@ assert(equals(fromUint64BE(1000n), new Uint8Array([0, 0, 0, 0, 0, 0, 3, 232])));
 
 ```ts
 import { equals, fromInt16BE, fromInt32BE, fromInt64BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(fromInt16BE(-1), new Uint8Array([255, 255])));
 assert(equals(fromInt32BE(-1), new Uint8Array([255, 255, 255, 255])));
@@ -218,7 +218,7 @@ For arbitrary-precision integers with optional length specification:
 
 ```ts
 import { equals, fromIntBE, fromUintBE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 // Automatic length (minimum bytes needed)
 assert(equals(fromUintBE(1000), new Uint8Array([3, 232]))); // 2 bytes
@@ -249,7 +249,7 @@ These functions read integers from a Uint8Array at a specified offset.
 
 ```ts
 import { getBigUint64BE, getUint16BE, getUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 0, 0, 0, 0, 3, 232]);
 assert(getUint16BE(bytes, 6) === 1000);
@@ -267,7 +267,7 @@ assert(getBigUint64BE(bytes, 0) === 1000n);
 
 ```ts
 import { getInt16BE, getInt32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 assert(getInt16BE(bytes, 2) === 1000);
@@ -294,7 +294,7 @@ These functions write integers to a Uint8Array at a specified offset and return 
 
 ```ts
 import { equals, setUint16BE, setUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array(8);
 setUint16BE(bytes, 0, 1000); // Writes at offset 0
@@ -312,7 +312,7 @@ assert(equals(bytes, new Uint8Array([3, 232, 0, 0, 7, 208, 0, 0])));
 
 ```ts
 import { equals, setInt16BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array(4);
 setInt16BE(bytes, 0, -1);
@@ -333,7 +333,7 @@ these convert the whole array.
 
 ```ts
 import { toBigIntBE, toBigUintBE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 assert(toBigUintBE(bytes) === 1000n);
@@ -355,7 +355,7 @@ All functions that deal with multi-byte values support both big-endian and littl
 
 ```ts
 import { equals, fromUint16BE, fromUint16LE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 // Big-endian: 1000 = 0x03E8 stored as [0x03, 0xE8]
 assert(equals(fromUint16BE(1000), new Uint8Array([3, 232])));

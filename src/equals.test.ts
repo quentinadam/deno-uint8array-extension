@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 import { equals } from './equals.ts';
 
 Deno.test('equals', () => {

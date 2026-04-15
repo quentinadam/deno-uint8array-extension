@@ -39,7 +39,7 @@ Use this library when you need to:
 
 ```ts
 import { equals, fromInt32BE, fromUint16BE, fromUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 assert(equals(fromUint16BE(1000), new Uint8Array([3, 232])));
 assert(equals(fromUint32BE(1000), new Uint8Array([0, 0, 3, 232])));
@@ -50,7 +50,7 @@ assert(equals(fromInt32BE(-1), new Uint8Array([255, 255, 255, 255])));
 
 ```ts
 import { getUint16BE, getUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 assert(getUint16BE(bytes, 2) === 1000); // reads 2 bytes at offset 2
@@ -61,7 +61,7 @@ assert(getUint32BE(bytes, 0) === 1000); // reads 4 bytes at offset 0
 
 ```ts
 import { equals, setUint16BE, setUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array(8);
 setUint16BE(bytes, 0, 1000);
@@ -73,7 +73,7 @@ assert(equals(bytes, new Uint8Array([3, 232, 0, 0, 0, 0, 7, 208])));
 
 ```ts
 import { concat, equals, padEnd, padStart } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const a = new Uint8Array([1, 2]);
 const b = new Uint8Array([3, 4]);
@@ -87,7 +87,7 @@ assert(equals(padEnd(a, 4), new Uint8Array([1, 2, 0, 0])));
 
 ```ts
 import { toBigIntBE, toBigUintBE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 assert(toBigUintBE(bytes) === 1000n); // unsigned
@@ -154,7 +154,7 @@ Import specific functions directly. Best for tree-shaking.
 
 ```ts
 import { equals, fromUint32BE, getUint32BE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = fromUint32BE(1000);
 assert(getUint32BE(bytes, 0) === 1000);
@@ -167,7 +167,7 @@ Use the class directly for static method calls.
 
 ```ts
 import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = Uint8ArrayExtension.fromUint32BE(1000);
 assert(Uint8ArrayExtension.equals(bytes, new Uint8Array([0, 0, 3, 232])));
@@ -182,7 +182,7 @@ Wrap an existing Uint8Array to use instance methods.
 
 ```ts
 import { Uint8ArrayExtension } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 const bytes = new Uint8Array([0, 0, 3, 232]);
 const ext = new Uint8ArrayExtension(bytes);
@@ -228,7 +228,7 @@ function buildPacket(type: number, payload: Uint8Array) {
 
 ```ts
 import { equals, fromUintBE } from '@quentinadam/uint8array-extension';
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 
 // Encode with minimum bytes
 assert(equals(fromUintBE(255), new Uint8Array([255]))); // 1 byte

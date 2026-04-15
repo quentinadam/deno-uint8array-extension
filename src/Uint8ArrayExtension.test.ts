@@ -1,4 +1,4 @@
-import assert from '@quentinadam/assert';
+import { assert } from '@quentinadam/assert';
 import { Uint8ArrayExtension } from './Uint8ArrayExtension.ts';
 import { equals } from './equals.ts';
 
