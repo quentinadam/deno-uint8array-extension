@@ -1,19 +1,3 @@
-/**
- * Uint8ArrayExtension class for wrapping Uint8Array with convenient methods.
- *
- * @example
- * ```ts
- * import { Uint8ArrayExtension } from "@quentinadam/uint8array-extension/Uint8ArrayExtension";
- * import assert from "@quentinadam/assert";
- *
- * const bytes = new Uint8Array([0, 0, 3, 232]);
- * const ext = new Uint8ArrayExtension(bytes);
- * assert(ext.getUint32BE(0) === 1000);
- * ```
- *
- * @module
- */
-
 import { concat } from './concat.ts';
 import { equals } from './equals.ts';
 import { fromInt } from './fromInt.ts';

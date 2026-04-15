@@ -194,21 +194,6 @@ ext.setUint16BE(0, 500);
 assert(ext.getUint16BE(0) === 500);
 ```
 
-### 4. Sub-Path Imports (Maximum Tree-Shaking)
-
-Import individual functions from their own modules for the smallest bundle size.
-
-```ts
-import { equals } from '@quentinadam/uint8array-extension/equals';
-import { fromUint32BE } from '@quentinadam/uint8array-extension/fromUint32BE';
-import { getUint32BE } from '@quentinadam/uint8array-extension/getUint32BE';
-import assert from '@quentinadam/assert';
-
-const bytes = fromUint32BE(1000);
-assert(getUint32BE(bytes, 0) === 1000);
-assert(equals(bytes, new Uint8Array([0, 0, 3, 232])));
-```
-
 ## Common Patterns
 
 ### Parsing a Binary Header

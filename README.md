@@ -28,7 +28,7 @@ bun add @quentinadam/uint8array-extension
 
 ## Usage
 
-There are four ways to consume this library:
+There are three ways to consume this library:
 
 ### 1. Using the Uint8ArrayExtension Class (Instance Methods)
 
@@ -89,19 +89,6 @@ assert(getUint32BE(bytes, 0) === 1000);
 
 const combined = concat([new Uint8Array([1, 2]), new Uint8Array([3, 4])]);
 assert(equals(combined, new Uint8Array([1, 2, 3, 4])));
-```
-
-### 4. Using Sub-Path Imports (Maximum Tree-Shaking)
-
-Import individual functions from their own modules for the smallest possible bundle:
-
-```ts
-import { fromUint32BE } from '@quentinadam/uint8array-extension/fromUint32BE';
-import { getUint32BE } from '@quentinadam/uint8array-extension/getUint32BE';
-import assert from '@quentinadam/assert';
-
-const bytes = fromUint32BE(1000);
-assert(getUint32BE(bytes, 0) === 1000);
 ```
 
 ## API Reference

@@ -1,8 +1,3 @@
-/**
- * Internal helper that creates little-endian bytes from a non-negative bigint,
- *
- * @module
- */
 import assert from '@quentinadam/assert';
 import { fromUintLE } from './fromUintLE.ts';
 

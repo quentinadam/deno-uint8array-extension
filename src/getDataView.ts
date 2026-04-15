@@ -1,12 +1,6 @@
 /**
  * Creates a DataView for accessing the underlying buffer of a Uint8Array.
  *
- * @module
- */
-
-/**
- * Creates a DataView for accessing the underlying buffer of a Uint8Array.
- *
  * The DataView is created with the correct byte offset and length to match
  * the Uint8Array's view of the buffer, which is important when the Uint8Array
  * is a slice of a larger buffer.

@@ -1,8 +1,3 @@
-/**
- * Reads a signed 32-bit integer from a Uint8Array at the specified offset.
- *
- * @module
- */
 import { getDataView } from './getDataView.ts';
 
 /**

@@ -1,8 +1,3 @@
-/**
- * Writes a signed 32-bit little-endian integer to a Uint8Array at the specified offset.
- *
- * @module
- */
 import { setInt32 } from './setInt32.ts';
 
 /**

@@ -1,12 +1,6 @@
 /**
  * Converts a Uint8Array to an unsigned bigint.
  *
- * @module
- */
-
-/**
- * Converts a Uint8Array to an unsigned bigint.
- *
  * This function treats the entire array as a single large unsigned integer
  * and converts it to a bigint. The array can be of any length.
  *

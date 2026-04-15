@@ -1,8 +1,3 @@
-/**
- * Creates a little-endian Uint8Array from an unsigned integer.
- *
- * @module
- */
 import assert from '@quentinadam/assert';
 
 /**

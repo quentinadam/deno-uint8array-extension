@@ -1,12 +1,6 @@
 /**
  * Type guard that checks if a Uint8Array is backed by an ArrayBuffer (not SharedArrayBuffer).
  *
- * @module
- */
-
-/**
- * Type guard that checks if a Uint8Array is backed by an ArrayBuffer (not SharedArrayBuffer).
- *
  * This is useful when you need to ensure the buffer can be transferred or used with
  * APIs that don't support SharedArrayBuffer.
  *

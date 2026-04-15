@@ -1,8 +1,3 @@
-/**
- * Creates a big-endian Uint8Array from a signed integer using two's complement.
- *
- * @module
- */
 import { fromIntLE } from './fromIntLE.ts';
 
 /**

@@ -1,12 +1,6 @@
 /**
  * Concatenates multiple Uint8Arrays into a single Uint8Array.
  *
- * @module
- */
-
-/**
- * Concatenates multiple Uint8Arrays into a single Uint8Array.
- *
  * @example
  * ```ts
  * import { concat, equals } from "@quentinadam/uint8array-extension";

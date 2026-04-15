@@ -1,8 +1,3 @@
-/**
- * Creates a big-endian Uint8Array from an unsigned integer.
- *
- * @module
- */
 import { fromUintLE } from './fromUintLE.ts';
 
 /**

@@ -1,8 +1,3 @@
-/**
- * Creates a 2-byte Uint8Array from a signed 16-bit integer.
- *
- * @module
- */
 import { setInt16 } from './setInt16.ts';
 
 /**

@@ -1,8 +1,3 @@
-/**
- * Converts a Uint8Array to a signed bigint using two's complement.
- *
- * @module
- */
 import { toBigUint } from './toBigUint.ts';
 
 /**

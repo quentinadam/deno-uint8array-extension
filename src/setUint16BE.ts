@@ -1,8 +1,3 @@
-/**
- * Writes an unsigned 16-bit big-endian integer to a Uint8Array at the specified offset.
- *
- * @module
- */
 import { setUint16 } from './setUint16.ts';
 
 /**
